@@ -4,27 +4,17 @@ Respone:
 {
     "data": [
         {
+            "id": 1,
             "code": "TOEIC_LR",
             "name": "TOEIC Reading & Listening",
             "description": "Chứng chỉ TOEIC 2 kỹ năng",
             "status": 1
         },
         {
+            "id": 2,
             "code": "IELTS_AC",
             "name": "IELTS Academic",
             "description": "Chứng chỉ IELTS Học thuật",
-            "status": 1
-        },
-        {
-            "code": "TOEIC_WS",
-            "name": "TOEIC Writing & Speaking",
-            "description": "Chứng chỉ TOEIC 2 kỹ năng",
-            "status": 1
-        },
-        {
-            "code": "abc1",
-            "name": "xyz1",
-            "description": "321",
             "status": 1
         }
     ],

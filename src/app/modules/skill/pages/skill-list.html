@@ -5,7 +5,7 @@
 <nz-divider></nz-divider>
 <nz-table
   #basicTable
-  [nzData]="certificates"
+  [nzData]="skills"
   nzBordered
   [nzFrontPagination]="false"
   [nzTotal]="total"
@@ -17,6 +17,8 @@
     <tr>
       <th>Mã</th>
       <th>Tên</th>
+      <th>Chứng chỉ</th>
+      <th>Thứ tự</th>
       <th>Trạng thái</th>
       <th>Hành động</th>
     </tr>
@@ -25,6 +27,8 @@
     <tr *ngFor="let data of basicTable.data">
       <td>{{ data.code }}</td>
       <td>{{ data.name }}</td>
+      <td>{{ data.cert_id }}</td>
+      <td>{{ data.order_index }}</td>
       <td>
         <nz-tag [nzColor]="data.status === 1 ? 'green' : 'red'">
           {{ data.status === 1 ? 'Hoạt động' : 'Không hoạt động' }}

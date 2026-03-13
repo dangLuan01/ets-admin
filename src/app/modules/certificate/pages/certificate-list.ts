@@ -31,16 +31,26 @@ export class CertificateListComponent implements OnInit {
   private cdr = inject(ChangeDetectorRef);
 
   certificates: Certificate[] = [];
+  page: number = 1;
+  limit: number = 10;
+  total: number = 0;
 
   ngOnInit(): void {
     this.loadCertificates();
   }
 
   loadCertificates(): void {
-    this.certificateService.getAll().subscribe((res) => {
-      this.certificates = res.data;
+    this.certificateService.getAll(this.page, this.limit).subscribe((res) => {
+      this.certificates = res.data.response;
+      this.limit = res.data.pagination.limit;
+      this.total = res.data.pagination.total_records;
       this.cdr.detectChanges();
     });
+  }
+
+  onPageIndexChange(page: number): void {
+    this.page = page;
+    this.loadCertificates();
   }
 
   showCreateModal(): void {

@@ -11,4 +11,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./modules/certificate/certificate.routes').then((m) => m.CERTIFICATE_ROUTES),
   },
+  {
+    path: 'skill',
+    loadChildren: () =>
+      import('./modules/skill/skill.routes').then((m) => m.SKILL_ROUTES),
+  },
 ];
