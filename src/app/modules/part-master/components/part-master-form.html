@@ -1,0 +1,51 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="skill_id">Skill</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-select formControlName="skill_id" id="skill_id" nzPlaceHolder="Chọn skill">
+            <nz-option *ngFor="let skill of skills" [nzValue]="skill.id" [nzLabel]="skill.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="part_number">Part Number</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="number">
+            <input nz-input formControlName="part_number" id="part_number" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="name">Tên</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="font-colors">
+            <input nz-input formControlName="name" id="name" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-select formControlName="status" id="status">
+            <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+            <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <div style="text-align:right;margin-top:16px">
+        <button type="button" nz-button [nzType]="'default'" (click)="modalRef.close(false)">Huỷ</button>
+        <button type="submit" nz-button [nzType]="'primary'" [disabled]="validateForm.invalid">{{ isEdit ? 'Cập nhật' : 'Tạo mới' }}</button>
+      </div>
+    </nz-col>
+  </nz-row>
+</form>

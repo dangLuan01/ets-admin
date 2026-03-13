@@ -290,6 +290,308 @@ Validation Rules:
 
 ---
 
+## Entity: Part Master
+
+Description:
+Part Master represents an skill (e.g. TOEIC, IELTS).
+
+Fields:
+- id (number): Unique identifier
+- skill_id (number): Skill Id
+- part_number (number): Part number
+- name (string): Part name
+- status (number): Status (1 = Active, 0 = Inactive)
+
+---
+
+Get All Part Master
+
+GET /part-masters/get-all?page=1&limit=20
+
+Query Parameters:
+- page (number): Page number
+- limit (number): Number of items per page
+
+Response:
+{
+    "data": {
+        "pagination": {
+            "page": 1,
+            "limit": 10,
+            "total_records": 9,
+            "total_pages": 1,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 1,
+                "skill_id": 1,
+                "part_number": 1,
+                "name": "Photographs",
+                "status": 1
+            },
+            {
+                "id": 2,
+                "skill_id": 1,
+                "part_number": 2,
+                "name": "Question-Response",
+                "status": 1
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+
+---
+
+Get Part Master Detail (Edit)
+GET /part-masters/edit/{id}
+
+Path Parameter:
+- id (number): Part Master ID
+
+Response:
+{
+    "data": {
+        "id": 1,
+        "skill_id": 1,
+        "part_number": 1,
+        "name": "Photographs2",
+        "status": 1
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+
+---
+
+Create Part Master
+POST /part-masters/create
+
+Request:
+{
+    "skill_id": 1,
+    "part_number": 8,
+    "name": "Photographs"
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+Update Part Master
+PUT /part-masters/update
+
+Request:
+{
+    "id": 1,
+    "skill_id": 1,
+    "part_number": 1,
+    "name": "Photographs",
+    "status": 1
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- skill_id: required,
+- part_number: required
+- name: required
+- status: optional
+
+---
+
+
+## Entity: Exam
+
+Description:
+Exam represents an test (e.g. TOEIC, IELTS).
+
+Fields:
+- id (number): Unique identifier
+- cert_id (number): Id Certificate
+- title (string): Exam title
+- year: Exam year
+- category: Exam category
+- total_time: Exam total time
+- total_question: Exam total question
+- description: Exam description
+- thumbnail: Exam thumbnail
+- audio_full_url: Exam audio full url
+- created_at: Exam created at
+- status (number): Status (1 = Active, 0 = Inactive)
+
+---
+
+Get All Exams
+
+GET /exams/get-all?page=1&limit=20
+
+Query Parameters:
+- page (number): Page number
+- limit (number): Number of items per page
+
+Response:
+{
+    "data": {
+        "pagination": {
+            "page": 1,
+            "limit": 20,
+            "total_records": 2,
+            "total_pages": 1,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 1,
+                "cert_id": 1,
+                "title": "ETS 2024 - TEST 01",
+                "year": 2024,
+                "category": null,
+                "total_time": 120,
+                "total_question": 200,
+                "description": null,
+                "thumbnail": null,
+                "audio_full_url": "https://cdn.xoailac.top/ets/audio/2024/01/output.m3u8",
+                "status": 1,
+                "created_at": "2025-12-21T16:37:07Z"
+            },
+            {
+                "id": 5,
+                "cert_id": 1,
+                "title": "ETS 2024 - TEST 03",
+                "year": 2024,
+                "category": null,
+                "total_time": 120,
+                "total_question": 200,
+                "description": null,
+                "thumbnail": null,
+                "audio_full_url": null,
+                "status": 1,
+                "created_at": "2026-03-11T08:09:22Z"
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+
+---
+
+Get Exam Detail (Edit)
+GET /exams/edit/{id}
+
+Path Parameter:
+- id (number): Exam ID
+
+Response:
+{
+    "data": {
+        "id": 5,
+        "cert_id": 1,
+        "title": "ETS 2024 - TEST 03",
+        "year": 2024,
+        "category": null,
+        "total_time": 120,
+        "total_question": 200,
+        "description": null,
+        "thumbnail": null,
+        "audio_full_url": null,
+        "status": 1,
+        "created_at": "2026-03-11T08:09:22Z"
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+
+---
+
+Create Exam
+POST /exams/create
+
+Request:
+{
+    "cert_id":1,
+    "title":"ETS 2024 - TEST 02",
+    "year":2024,
+    "catagory":null,
+    "description":null,
+    "thumbnail":null,
+    "total_question": 200,
+    "total_time": 120,
+    "audio_full_url": "https://cdn.xoailac.top/ets/audio/2024/01/output.m3u8",
+    "status": 1
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+Update Exam
+PUT /exams/update
+
+Request:
+{
+    "id": 5,
+    "cert_id": 1,
+    "title":"ETS 2024 - TEST 03",
+    "year":2024,
+    "total_question": 200,
+    "total_time": 120,
+    "status": 1
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- cert_id: required,
+- title: required
+- year: required
+- total_time: required
+- total_question: required
+- audio_full_url: optional
+- description: optional
+- thumbnail: optional
+- category: optional
+- status: optional
+
+---
+
 API Usage Rules (Frontend):
 - Always create TypeScript interfaces for API responses
 - Do NOT use any

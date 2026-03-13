@@ -1,0 +1,54 @@
+<button nz-button nzType="primary" (click)="showCreateModal()">
+  <span nz-icon nzType="plus"></span>
+  Thêm mới
+</button>
+<nz-divider></nz-divider>
+<nz-table
+  #basicTable
+  [nzData]="exams"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzPageIndex]="page"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="onPageIndexChange($event)"
+>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Year</th>
+      <th>Category</th>
+      <th>Total Time</th>
+      <th>Total Question</th>
+      <th>Status</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.title }}</td>
+      <td>{{ data.year }}</td>
+      <td>{{ data.category }}</td>
+      <td>{{ data.total_time }}</td>
+      <td>{{ data.total_question }}</td>
+      <td>
+        <nz-tag [nzColor]="data.status === 1 ? 'green' : 'red'">
+          {{ data.status === 1 ? 'Hoạt động' : 'Không hoạt động' }}
+        </nz-tag>
+      </td>
+      <td>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="showEditModal(data)"
+        >
+          <span nz-icon nzType="edit"></span>
+        </button>
+        <button nz-button nzType="primary" nzDanger nzShape="circle">
+          <span nz-icon nzType="delete"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

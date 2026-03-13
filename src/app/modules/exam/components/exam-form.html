@@ -1,0 +1,111 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="cert_id">Certificate</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-select formControlName="cert_id" id="cert_id" nzPlaceHolder="Chọn chứng chỉ">
+            <nz-option *ngFor="let cert of certificates" [nzValue]="cert.id" [nzLabel]="cert.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="title">Title</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="font-colors">
+            <input nz-input formControlName="title" id="title" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="year">Year</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="calendar">
+            <input nz-input formControlName="year" id="year" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="total_time">Total Time</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="clock-circle">
+            <input nz-input formControlName="total_time" id="total_time" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="total_question">Total Question</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="number">
+            <input nz-input formControlName="total_question" id="total_question" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="category">Category</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="tag">
+            <input nz-input formControlName="category" id="category" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">Description</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="info-circle">
+            <input nz-input formControlName="description" id="description" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="thumbnail">Thumbnail</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="picture">
+            <input nz-input formControlName="thumbnail" id="thumbnail" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="audio_full_url">Audio Full URL</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="audio">
+            <input nz-input formControlName="audio_full_url" id="audio_full_url" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-select formControlName="status" id="status">
+            <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+            <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <div style="text-align:right;margin-top:16px">
+        <button type="button" nz-button [nzType]="'default'" (click)="modalRef.close(false)">Huỷ</button>
+        <button type="submit" nz-button [nzType]="'primary'" [disabled]="validateForm.invalid">{{ isEdit ? 'Cập nhật' : 'Tạo mới' }}</button>
+      </div>
+    </nz-col>
+  </nz-row>
+</form>

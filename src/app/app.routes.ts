@@ -16,4 +16,14 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./modules/skill/skill.routes').then((m) => m.SKILL_ROUTES),
   },
+  {
+    path: 'part-master',
+    loadChildren: () =>
+      import('./modules/part-master/part-master.routes').then((m) => m.PART_MASTER_ROUTES),
+  },
+  {
+    path: 'exam',
+    loadChildren: () =>
+      import('./modules/exam/exam.routes').then((m) => m.EXAM_ROUTES),
+  },
 ];
