@@ -26,4 +26,9 @@ export const routes: Routes = [
     loadChildren: () =>
       import('./modules/exam/exam.routes').then((m) => m.EXAM_ROUTES),
   },
+  {
+    path: 'question',
+    loadChildren: () =>
+      import('./modules/question/question.routes').then((m) => m.QUESTION_ROUTES),
+  },
 ];

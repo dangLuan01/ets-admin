@@ -601,6 +601,148 @@ API Usage Rules (Frontend):
 
 ---
 
+## Entity: Question
+
+Description:
+Question represents an question (e.g. TOEIC, IELTS).
+
+Fields:
+- exam_id (number): Exam Id
+- entity_type (string): Entity type (SINGLE),
+- part_id (number): Part Id
+- part (number): Part number,
+- question_text (string): Question text
+- image_url (string): Image url
+- correct_answer (string): Correct answer
+- option_a (string): Option A
+- option_b (string): Option B
+- option_c (string): Option C
+- option_d (string): Option D
+- audio_start_ms (number): Audio start ms
+- audio_end_ms (number): Audio end ms
+- sub_order (number): Sub order
+
+---
+
+Create Question Single
+
+POST /questions/single/create
+
+Request:
+{
+    "exam_id": 2,
+    "entity_type": "SINGLE",
+    "part_id": 1,
+    "part": 1,
+    "question_text": "abc",
+    "image_url": "http://",
+    "correct_answer":"A",
+    "option_a": "AA",
+    "option_b": "BB",
+    "option_c": "CC",
+    "option_d": "DD",
+    "audio_start_ms": 1000,
+    "audio_end_ms": 2000,
+    "sub_order": 1
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+Validation Rules:
+- exam_id: required,
+- entity_type: required,
+- part_id: required,
+- part: required,
+- question_text: optional,
+- image_url: optional,
+- correct_answer: required,
+- option_a: required,
+- option_b: required,
+- option_c: required,
+- option_d: optional,
+- audio_start_ms: optional,
+- audio_end_ms: optional,
+- sub_order: required
+
+
+Create Question Group
+
+POST /questions/group/create
+
+Request:
+{
+    "exam_id": 2,
+    "entity_type": "GROUP",
+    "part_id": 1,
+    "image_url":"http://group",
+    "audio_start_ms": 1000,
+    "audio_end_ms": 5000,
+    "sub_questions": [
+        {
+            "part": 3,
+            "question_text": "abc",
+            "image_url":"http://question1"
+            "correct_answer":"A",
+            "option_a": "AA",
+            "option_b": "BB",
+            "option_c": "CC",
+            "option_d": "DD",
+            "sub_order": 1
+        },
+        {
+            "part": 3,
+            "question_text": "abc",
+            "image_url":"http://question2"
+            "correct_answer":"A",
+            "option_a": "AA",
+            "option_b": "BB",
+            "option_c": "CC",
+            "option_d": "DD",
+            "sub_order": 2
+        },
+        {
+            "part": 3,
+            "question_text": "abc",
+            "image_url": "http://question3",
+            "correct_answer":"A",
+            "option_a": "AA",
+            "option_b": "BB",
+            "option_c": "CC",
+            "option_d": "DD",
+            "sub_order": 3
+        }
+    ]
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+Validation Rules:
+- exam_id: required,
+- entity_type: required,
+- part_id: required,
+- part: required,
+- question_text: optional,
+- image_url: optional,
+- correct_answer: required,
+- option_a: required,
+- option_b: required,
+- option_c: required,
+- option_d: optional,
+- audio_start_ms: optional,
+- audio_end_ms: optional,
+- sub_order: required
+
+---
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400

@@ -1,0 +1,79 @@
+<div [formGroup]="form">
+  <nz-row [nzGutter]="8">
+    <nz-col [nzSpan]="4">
+      <nz-form-item>
+        <nz-form-label>Part</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="part" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="8">
+      <nz-form-item>
+        <nz-form-label>Câu hỏi</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="question_text" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="6">
+      <nz-form-item>
+        <nz-form-label>Ảnh</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="image_url" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>Đáp án đúng</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="correct_answer" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>A</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="option_a" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>B</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="option_b" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>C</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="option_c" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>D</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="option_d" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <nz-form-item>
+        <nz-form-label>Thứ tự</nz-form-label>
+        <nz-form-control>
+          <input nz-input formControlName="sub_order" type="number" />
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="2">
+      <button nz-button nzType="default" (click)="remove.emit()" type="button">Xoá</button>
+    </nz-col>
+  </nz-row>
+</div>
