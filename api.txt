@@ -1,0 +1,61 @@
+API CRUD Certificate:
+GET: http://localhost:8080/api/v1/certificates/get-all
+Respone:
+{
+    "data": [
+        {
+            "code": "TOEIC_LR",
+            "name": "TOEIC Reading & Listening",
+            "description": "Chứng chỉ TOEIC 2 kỹ năng",
+            "status": 1
+        },
+        {
+            "code": "IELTS_AC",
+            "name": "IELTS Academic",
+            "description": "Chứng chỉ IELTS Học thuật",
+            "status": 1
+        },
+        {
+            "code": "TOEIC_WS",
+            "name": "TOEIC Writing & Speaking",
+            "description": "Chứng chỉ TOEIC 2 kỹ năng",
+            "status": 1
+        },
+        {
+            "code": "abc1",
+            "name": "xyz1",
+            "description": "321",
+            "status": 1
+        }
+    ],
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+
+POST: http://localhost:8080/api/v1/certificates/create
+Resquest:
+{
+    "code":"abc1",
+    "name":"xyz1",
+    "description":"321"
+}
+GET: http://localhost:8080/api/v1/certificates/edit/:id
+Respone:
+{
+    "data": {
+        "code": "TOEIC_WS",
+        "name": "TOEIC Writing & Speaking",
+        "description": "Chứng chỉ TOEIC 2 kỹ năng",
+        "status": 1
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+PUT: http://localhost:8080/api/v1/certificates/update
+Request:
+{
+    "id":3,
+    "code":"TOEIC_WS",
+    "name":"TOEIC Writing & Speaking",
+    "description": "Chứng chỉ TOEIC 2 kỹ năng"
+}
