@@ -112,13 +112,13 @@ export class QuestionAddPage implements OnInit {
     this.subQuestions.push(
       this.fb.group({
         part: [null, Validators.required],
-        question_text: [''],
+        question_text: ['', Validators.required],
         image_url: [''],
         correct_answer: ['', Validators.required],
         option_a: ['', Validators.required],
         option_b: ['', Validators.required],
         option_c: ['', Validators.required],
-        option_d: [''],
+        option_d: ['' , Validators.required],
         sub_order: [null, Validators.required],
       })
     );

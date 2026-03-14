@@ -1,17 +1,17 @@
 <div [formGroup]="form">
   <nz-row [nzGutter]="8">
-    <nz-col [nzSpan]="4">
+    <nz-col [nzSpan]="2">
       <nz-form-item>
-        <nz-form-label>Part</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>Part</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="part" type="number" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
     <nz-col [nzSpan]="8">
       <nz-form-item>
-        <nz-form-label>Câu hỏi</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>Câu hỏi</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="question_text" />
         </nz-form-control>
       </nz-form-item>
@@ -24,42 +24,42 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="4">
       <nz-form-item>
-        <nz-form-label>Đáp án đúng</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>Đáp án đúng</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="correct_answer" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label>A</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>A</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="option_a" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label>B</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>B</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="option_b" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label>C</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>C</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="option_c" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="6">
       <nz-form-item>
-        <nz-form-label>D</nz-form-label>
-        <nz-form-control>
+        <nz-form-label nzRequired>D</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
           <input nz-input formControlName="option_d" />
         </nz-form-control>
       </nz-form-item>

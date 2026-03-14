@@ -27,7 +27,7 @@
           <nz-form-label>Part</nz-form-label>
           <nz-form-control>
             <nz-select formControlName="part_id" nzPlaceHolder="Chọn Part">
-              <nz-option *ngFor="let part of filteredParts" [nzValue]="part.id" [nzLabel]="part.name"></nz-option>
+              <nz-option *ngFor="let part of filteredParts" [nzValue]="part.id" [nzLabel]="part.name + ' - ' + part.part_number"></nz-option>
             </nz-select>
           </nz-form-control>
         </nz-form-item>
