@@ -37,3 +37,115 @@ export interface ExamDetailResponse {
   message: string;
   status: 'SUCCESS' | 'ERROR';
 }
+
+// From GET /exams/{exam_id}/structure
+export interface ExamStructure {
+  exam_id: number;
+  exam_name: string;
+  cert_code: string;
+  blueprint: SkillBlueprint[];
+}
+
+export interface SkillBlueprint {
+  skill_id: number;
+  skill_code: string;
+  skill_name: string;
+  parts: Part[];
+}
+
+export interface Part {
+  part_id: number;
+  part_name: string;
+  part_number: number;
+}
+
+export interface ExamStructureResponse {
+  data: ExamStructure;
+  message: string;
+  status: 'SUCCESS' | 'ERROR';
+}
+
+// From GET /exams/{exam_id}/parts/{part_id}
+export interface QuestionsByPart {
+    exam_id: number;
+    part_id: number;
+    items: QuestionItem[];
+}
+
+export interface QuestionItem {
+    entity_type: 'SINGLE' | 'GROUP';
+    entity_id: number;
+    order_index: number;
+    question_data?: QuestionData; // For SINGLE
+    group_data?: GroupData;      // For GROUP
+}
+
+export interface GroupData {
+    passage_text: string | null;
+    image_url: string | null;
+    audio_start_ms: number | null;
+    audio_end_ms: number | null;
+    transcript: string | null;
+    explanation: string | null;
+    sub_questions: QuestionData[];
+}
+
+export interface QuestionData {
+    question_id: number;
+    question_text: string | null;
+    image_url: string | null;
+    audio_start_ms: number | null;
+    audio_end_ms: number | null;
+    correct_answer: string;
+    display_number: number;
+    sub_order: number;
+    explanation: string | null;
+    transcript: string | null;
+    options: { [key: string]: string | null };
+}
+
+export interface QuestionsByPartResponse {
+    data: QuestionsByPart;
+    message: string;
+    status: 'SUCCESS' | 'ERROR';
+}
+
+// Payloads for updating questions
+export interface UpdateSingleQuestionPayload {
+  exam_id: number;
+  part_id: number;
+  question_text: string | null;
+  option_a?: string;
+  option_b?: string;
+  option_c?: string;
+  option_d?: string;
+  correct_answer: string;
+  explanation: string | null;
+  image_url: string | null;
+  audio_start_ms: number | null;
+  audio_end_ms: number | null;
+  transcript: string | null;
+  tags?: string;
+}
+
+export interface UpdateQuestionGroupPayload {
+  exam_id: number;
+  part_id: number;
+  passage_text: string | null;
+  image_url: string | null;
+  audio_start_ms: number | null;
+  audio_end_ms: number | null;
+  transcript: string | null;
+  explanation: string | null;
+  sub_questions: SubQuestionPayload[];
+}
+
+export interface SubQuestionPayload {
+  question_text: string;
+  option_a: string;
+  option_b: string;
+  option_c: string;
+  option_d?: string;
+  correct_answer: string;
+  explanation: string | null;
+}

@@ -73,7 +73,7 @@ export class ExamListComponent implements OnInit {
     const modal = this.modal.create({
       nzTitle: 'Cập nhật Exam',
       nzContent: ExamFormComponent,
-      nzWidth: '600px',
+      nzWidth: '90%',
       nzFooter: null,
       nzData: {
         isEdit: true,

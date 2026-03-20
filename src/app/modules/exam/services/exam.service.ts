@@ -1,27 +1,51 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Exam, ExamListResponse, ExamDetailResponse } from '../models/exam.model';
+import { 
+  Exam, 
+  ExamListResponse, 
+  ExamDetailResponse, 
+  ExamStructureResponse, 
+  QuestionsByPartResponse,
+  UpdateSingleQuestionPayload,
+  UpdateQuestionGroupPayload
+} from '../models/exam.model';
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
-  private baseUrl = 'http://localhost:8080/api/v1/exams';
+  private baseUrl = 'http://localhost:8080/api/v1';
 
   constructor(private http: HttpClient) {}
 
   getAll(page = 1, limit = 20): Observable<ExamListResponse> {
-    return this.http.get<ExamListResponse>(`${this.baseUrl}/get-all?page=${page}&limit=${limit}`);
+    return this.http.get<ExamListResponse>(`${this.baseUrl}/exams/get-all?page=${page}&limit=${limit}`);
   }
 
   getDetail(id: number): Observable<ExamDetailResponse> {
-    return this.http.get<ExamDetailResponse>(`${this.baseUrl}/edit/${id}`);
+    return this.http.get<ExamDetailResponse>(`${this.baseUrl}/exams/edit/${id}`);
   }
 
   create(payload: Omit<Exam, 'id' | 'created_at' | 'status'>): Observable<any> {
-    return this.http.post(`${this.baseUrl}/create`, payload);
+    return this.http.post(`${this.baseUrl}/exams/create`, payload);
   }
 
   update(payload: Partial<Exam>): Observable<any> {
-    return this.http.put(`${this.baseUrl}/update`, payload);
+    return this.http.put(`${this.baseUrl}/exams/update`, payload);
+  }
+
+  getExamStructure(examId: number): Observable<ExamStructureResponse> {
+    return this.http.get<ExamStructureResponse>(`${this.baseUrl}/exams/${examId}/structure`);
+  }
+
+  getQuestionsByPart(examId: number, partId: number): Observable<QuestionsByPartResponse> {
+    return this.http.get<QuestionsByPartResponse>(`${this.baseUrl}/exams/${examId}/parts/${partId}`);
+  }
+
+  updateSingleQuestion(questionId: number, payload: UpdateSingleQuestionPayload): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exam/questions/${questionId}`, payload);
+  }
+
+  updateQuestionGroup(groupId: number, payload: UpdateQuestionGroupPayload): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exams/question-groups/${groupId}`, payload);
   }
 }

@@ -743,6 +743,421 @@ Validation Rules:
 - sub_order: required
 
 ---
+
+## Entity: Exam Structure
+
+Description:
+This API retrieves the structure of a specific exam, including its skills and parts.
+
+**GET** `/exams/{exam_id}/structure`
+
+**Path Parameters:**
+- `exam_id` (number): The ID of the exam.
+
+**Response:**
+```json
+{
+    "data": {
+        "exam_id": 1,
+        "exam_name": "ETS 2024 - TEST 01",
+        "cert_code": "TOEIC_LR",
+        "blueprint": [
+            {
+                "skill_id": 1,
+                "skill_code": "LISTENING",
+                "skill_name": "Listening Test",
+                "parts": [
+                    {
+                        "part_id": 8,
+                        "part_name": "General Introduction",
+                        "part_number": 0
+                    },
+                    {
+                        "part_id": 1,
+                        "part_name": "Photographs",
+                        "part_number": 1
+                    },
+                    {
+                        "part_id": 2,
+                        "part_name": "Question-Response",
+                        "part_number": 2
+                    },
+                    {
+                        "part_id": 3,
+                        "part_name": "Conversations",
+                        "part_number": 3
+                    },
+                    {
+                        "part_id": 4,
+                        "part_name": "Short Talks",
+                        "part_number": 4
+                    }
+                ]
+            },
+            {
+                "skill_id": 2,
+                "skill_code": "READING",
+                "skill_name": "Reading Test",
+                "parts": [
+                    {
+                        "part_id": 9,
+                        "part_name": "General Reading Introduction",
+                        "part_number": 0
+                    },
+                    {
+                        "part_id": 5,
+                        "part_name": "Incomplete Sentences",
+                        "part_number": 5
+                    },
+                    {
+                        "part_id": 6,
+                        "part_name": "Text Completion",
+                        "part_number": 6
+                    },
+                    {
+                        "part_id": 7,
+                        "part_name": "Reading Comprehension",
+                        "part_number": 7
+                    }
+                ]
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+
+---
+
+## Get Questions By Part Id
+
+Description:
+This API retrieves all questions associated with a specific part of an exam.
+
+**GET** `/exams/{exam_id}/parts/{part_id}`
+
+**Path Parameters:**
+- `exam_id` (number): The ID of the exam.
+- `part_id` (number): The ID of the part.
+
+**Response:**
+```json
+{
+    "data": {
+        "exam_id": 1,
+        "part_id": 1,
+        "items": [
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 1,
+                "order_index": 1,
+                "question_data": {
+                    "question_id": 1,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-1.png",
+                    "audio_start_ms": 98000,
+                    "audio_end_ms": 120000,
+                    "correct_answer": "A",
+                    "display_number": 1,
+                    "sub_order": 1,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            },
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 2,
+                "order_index": 2,
+                "question_data": {
+                    "question_id": 2,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-2.png",
+                    "audio_start_ms": 125000,
+                    "audio_end_ms": 146000,
+                    "correct_answer": "B",
+                    "display_number": 2,
+                    "sub_order": 2,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            },
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 3,
+                "order_index": 3,
+                "question_data": {
+                    "question_id": 3,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-3.png",
+                    "audio_start_ms": 157000,
+                    "audio_end_ms": 180000,
+                    "correct_answer": "B",
+                    "display_number": 3,
+                    "sub_order": 3,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            },
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 4,
+                "order_index": 4,
+                "question_data": {
+                    "question_id": 4,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-4.png",
+                    "audio_start_ms": 185000,
+                    "audio_end_ms": 209000,
+                    "correct_answer": "D",
+                    "display_number": 4,
+                    "sub_order": 4,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            },
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 5,
+                "order_index": 5,
+                "question_data": {
+                    "question_id": 5,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-5.png",
+                    "audio_start_ms": 212000,
+                    "audio_end_ms": 236000,
+                    "correct_answer": "C",
+                    "display_number": 5,
+                    "sub_order": 5,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            },
+            {
+                "entity_type": "SINGLE",
+                "entity_id": 6,
+                "order_index": 6,
+                "question_data": {
+                    "question_id": 6,
+                    "question_text": null,
+                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-6.png",
+                    "audio_start_ms": 241000,
+                    "audio_end_ms": 264000,
+                    "correct_answer": "C",
+                    "display_number": 6,
+                    "sub_order": 6,
+                    "explanation": null,
+                    "transcript": null,
+                    "options": {
+                        "A": null,
+                        "B": null,
+                        "C": null,
+                        "D": null
+                    }
+                }
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+
+```json
+{
+    "data": {
+        "exam_id": 1,
+        "part_id": 3,
+        "items": [
+            {
+                "entity_type": "GROUP",
+                "entity_id": 1,
+                "order_index": 32,
+                "group_data": {
+                    "passage_text": null,
+                    "image_url": null,
+                    "audio_start_ms": 846000,
+                    "audio_end_ms": 914000,
+                    "transcript": null,
+                    "explanation": null,
+                    "sub_questions": [
+                        {
+                            "question_id": 10,
+                            "question_text": "What event dose the woman mention?",
+                            "image_url": null,
+                            "audio_start_ms": null,
+                            "audio_end_ms": null,
+                            "correct_answer": "D",
+                            "display_number": 32,
+                            "sub_order": 1,
+                            "explanation": null,
+                            "transcript": null,
+                            "options": {
+                                "A": "A job fair",
+                                "B": "A cooking class",
+                                "C": "A fund-raiser",
+                                "D": "A company picnic"
+                            }
+                        },
+                        {
+                            "question_id": 11,
+                            "question_text": "What dose the woman ask for?",
+                            "image_url": null,
+                            "audio_start_ms": null,
+                            "audio_end_ms": null,
+                            "correct_answer": "B",
+                            "display_number": 33,
+                            "sub_order": 2,
+                            "explanation": null,
+                            "transcript": null,
+                            "options": {
+                                "A": "A guest list",
+                                "B": "A dessert recipe",
+                                "C": "A business card",
+                                "D": "A promotional code"
+                            }
+                        },
+                        {
+                            "question_id": 12,
+                            "question_text": "What dose the man recommend doing?",
+                            "image_url": null,
+                            "audio_start_ms": null,
+                            "audio_end_ms": null,
+                            "correct_answer": "B",
+                            "display_number": 34,
+                            "sub_order": 3,
+                            "explanation": null,
+                            "transcript": null,
+                            "options": {
+                                "A": "Returing some merchandise",
+                                "B": "Watching a video",
+                                "C": "Creating an account",
+                                "D": "Reading a review"
+                            }
+                        }
+                    ]
+                }
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+## Entity: Update  Question
+
+---
+
+Update Question Single
+PUT /api/v1/exams/questions
+
+Request:
+{
+  "exam_id": 1,
+  "part_id": 5,
+  
+  "question_text": "The manager requested that everyone _______ the meeting on time.",
+  "option_a": "attend",
+  "option_b": "attends",
+  "option_c": "attending",
+  "option_d": "attended",
+  "correct_answer": "A",
+  "explanation": "Cấu trúc giả định (Subjunctive): request that S + V(nguyên thể).",
+  
+  // Các trường không dùng đến (như Audio/Ảnh cho Part 5) thì Frontend cứ gửi null
+  "image_url": null,
+  "audio_start_ms": null,
+  "audio_end_ms": null,
+  "transcript": null,
+  "tags": "ETS_2024, Grammar"
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+Update Question Group
+PUT /api/v1/exams/question-groups
+
+Request:
+{
+  "exam_id": 1,
+  "part_id": 7,
+
+  // --- THÔNG TIN CỦA ĐOẠN VĂN/AUDIO CHUNG (PARENT) ---
+  "passage_text": "<p>Dear Mr. Smith, this letter is to inform you about your recent order. Unfortunately, the item is out of stock.</p>",
+  "image_url": "https://cdn.domain.com/images/part7_email_01.png",
+  "audio_start_ms": null,
+  "audio_end_ms": null,
+  "transcript": null,
+  "explanation": "Đoạn văn nói về việc giao hàng trễ do hết hàng trong kho.",
+  
+  // --- DANH SÁCH CÁC CÂU HỎI CON (CHILDREN) ---
+  "sub_questions": [
+    {
+      "question_text": "Why was the letter written?",
+      "option_a": "To complain about a service",
+      "option_b": "To inform about an order status",
+      "option_c": "To invite him to an event",
+      "option_d": "To ask for a refund",
+      "correct_answer": "B",
+      "explanation": "Thông tin nằm ở dòng đầu tiên của bức thư."
+    },
+    {
+      "question_text": "What is true about the item Mr. Smith ordered?",
+      "option_a": "It is currently unavailable.",
+      "option_b": "It is cheaper than expected.",
+      "option_c": "It was damaged in transit.",
+      "option_d": "It has been shipped.",
+      "correct_answer": "A",
+      "explanation": "Cụm từ 'out of stock' đồng nghĩa với 'currently unavailable'."
+    }
+  ]
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400
