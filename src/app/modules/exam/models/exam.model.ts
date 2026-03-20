@@ -124,6 +124,7 @@ export interface UpdateSingleQuestionPayload {
   image_url: string | null;
   audio_start_ms: number | null;
   audio_end_ms: number | null;
+  sub_order: number;
   transcript: string | null;
   tags?: string;
 }
@@ -146,6 +147,7 @@ export interface SubQuestionPayload {
   option_b: string;
   option_c: string;
   option_d?: string;
+  sub_order: number;
   correct_answer: string;
   explanation: string | null;
 }

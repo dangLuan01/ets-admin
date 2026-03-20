@@ -41,11 +41,11 @@ export class ExamService {
     return this.http.get<QuestionsByPartResponse>(`${this.baseUrl}/exams/${examId}/parts/${partId}`);
   }
 
-  updateSingleQuestion(questionId: number, payload: UpdateSingleQuestionPayload): Observable<any> {
-    return this.http.put(`${this.baseUrl}/exam/questions/${questionId}`, payload);
+  updateSingleQuestion(payload: UpdateSingleQuestionPayload): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exams/questions/update`, payload);
   }
 
-  updateQuestionGroup(groupId: number, payload: UpdateQuestionGroupPayload): Observable<any> {
-    return this.http.put(`${this.baseUrl}/exams/question-groups/${groupId}`, payload);
+  updateQuestionGroup(payload: UpdateQuestionGroupPayload): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exams/question-groups/update`, payload);
   }
 }

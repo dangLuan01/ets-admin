@@ -167,7 +167,7 @@
                     </nz-form-item>
                   </div>
                 </div>
-                  <div nz-row [nzGutter]="8">
+                <div nz-row [nzGutter]="8">
                   <div nz-col [nzSpan]="12">
                     <nz-form-item>
                       <nz-form-label>Audio Start (ms)</nz-form-label>
@@ -180,7 +180,14 @@
                       <nz-form-control><input nz-input formControlName="audio_end_ms"></nz-form-control>
                     </nz-form-item>
                   </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Sub Order</nz-form-label>
+                      <nz-form-control><input type="number" nz-input formControlName="sub_order"></nz-form-control>
+                    </nz-form-item>
+                  </div>
                 </div>
+              
                 <nz-form-item>
                   <nz-form-label>Correct Answer</nz-form-label>
                   <nz-form-control>
@@ -242,6 +249,10 @@
                                 <nz-option nzValue="D" nzLabel="D"></nz-option>
                               </nz-select>
                             </nz-form-control>
+                          </nz-form-item>
+                          <nz-form-item>
+                            <nz-form-label>Sub-order</nz-form-label>
+                            <nz-form-control><input type="number" nz-input formControlName="sub_order"></nz-form-control>
                           </nz-form-item>
                           <nz-form-item>
                             <nz-form-label>Explanation</nz-form-label>

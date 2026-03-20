@@ -114,12 +114,13 @@ export class ExamFormComponent implements OnInit {
 
   private createSingleQuestionGroup(id: number, data?: QuestionData): FormGroup {
     return this.fb.group({
-      entity_id: [id],
+      question_id: [id],
       entity_type: ['SINGLE'],
       question_text: [data?.question_text],
       image_url: [data?.image_url],
       audio_start_ms: [data?.audio_start_ms],
       audio_end_ms: [data?.audio_end_ms],
+      sub_order: Number(data?.sub_order),
       transcript: [data?.transcript],
       option_a: [data?.options?.['A']],
       option_b: [data?.options?.['B']],
@@ -133,18 +134,20 @@ export class ExamFormComponent implements OnInit {
 
   private createGroupQuestionGroup(id: number, orderIndex: number, data?: GroupData): FormGroup {
     const subQuestions = data?.sub_questions.map(sq => this.fb.group({
+        question_id: [sq.question_id],
         question_text: [sq.question_text],
         option_a: [sq.options?.['A']],
         option_b: [sq.options?.['B']],
         option_c: [sq.options?.['C']],
         option_d: [sq.options?.['D']],
+        sub_order: Number(sq.sub_order),
         display_number: [sq.display_number],
         correct_answer: [sq.correct_answer],
         explanation: [sq.explanation],
     })) || [];
 
     return this.fb.group({
-      entity_id: [id],
+      group_id: [id],
       entity_type: ['GROUP'],
       order_index: [orderIndex],
       passage_text: [data?.passage_text],
@@ -163,23 +166,23 @@ export class ExamFormComponent implements OnInit {
   saveQuestion(index: number): void {
     const questionFormGroup = this.questions.at(index);
     const type = questionFormGroup.get('entity_type')?.value;
-    const id = questionFormGroup.get('entity_id')?.value;
     const payload = questionFormGroup.value;
 
     if (!this.currentPartId || !this.modalData?.model?.id) return;
 
     payload.exam_id = this.modalData.model.id;
     payload.part_id = this.currentPartId;
+   
 
     if (type === 'SINGLE') {
-      this.examService.updateSingleQuestion(id, payload).subscribe({
-        next: () => this.message.success(`Question ${id} updated successfully!`),
-        error: (err) => this.message.error(`Failed to update question ${id}: ${err.message}`)
+      this.examService.updateSingleQuestion(payload).subscribe({
+        next: () => this.message.success(`Question updated successfully!`),
+        error: (err) => this.message.error(`Failed to update question ${payload.question_id}: ${err.message}`)
       });
     } else if (type === 'GROUP') {
-      this.examService.updateQuestionGroup(id, payload).subscribe({
-        next: () => this.message.success(`Question Group ${id} updated successfully!`),
-        error: (err) => this.message.error(`Failed to update group ${id}: ${err.message}`)
+      this.examService.updateQuestionGroup(payload).subscribe({
+        next: () => this.message.success(`Question Group updated successfully!`),
+        error: (err) => this.message.error(`Failed to update group: ${err.message}`)
       });
     }
   }
