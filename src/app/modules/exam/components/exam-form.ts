@@ -1,5 +1,5 @@
 import { NzDividerModule } from 'ng-zorro-antd/divider';
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -13,9 +13,10 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ExamService } from '../services/exam.service';
-import { Exam, ExamStructure, QuestionItem, QuestionData, GroupData } from '../models/exam.model';
+import { Exam, ExamStructure, QuestionItem, QuestionData, GroupData, Direction } from '../models/exam.model';
 import { CertificateService } from '../../certificate/services/certificate.service';
-import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
+import { DirectionEditFormComponent } from './direction-edit-form';
 
 @Component({
   selector: 'app-exam-form',
@@ -44,6 +45,8 @@ export class ExamFormComponent implements OnInit {
   private examService = inject(ExamService);
   private certificateService = inject(CertificateService);
   private message = inject(NzMessageService);
+  private modal = inject(NzModalService);
+  private cdr = inject(ChangeDetectorRef);
 
   validateForm!: FormGroup;
   isEdit = false;
@@ -53,6 +56,7 @@ export class ExamFormComponent implements OnInit {
   isLoadingStructure = false;
   isLoadingQuestions = false;
   currentPartId: number | null = null;
+  currentPartDirection: Direction | null = null;
 
   get questions() : FormArray {
     return this.validateForm.get('questions') as FormArray;
@@ -88,6 +92,7 @@ export class ExamFormComponent implements OnInit {
       this.examService.getExamStructure(examId).subscribe(res => {
         this.examStructure = res.data;
         this.isLoadingStructure = false;
+        this.cdr.detectChanges();
       });
     }
   }
@@ -99,9 +104,11 @@ export class ExamFormComponent implements OnInit {
     this.currentPartId = partId;
     this.isLoadingQuestions = true;
     this.questions.clear();
+    this.currentPartDirection = null;
 
     this.examService.getQuestionsByPart(examId, partId).subscribe(res => {
-      res.data.items.forEach(item => {
+      this.currentPartDirection = res.data.direction ?? null;
+      res.data.items?.forEach(item => {
         if (item.entity_type === 'SINGLE') {
           this.questions.push(this.createSingleQuestionGroup(item.entity_id, item.question_data));
         } else if (item.entity_type === 'GROUP') {
@@ -109,6 +116,29 @@ export class ExamFormComponent implements OnInit {
         }
       });
       this.isLoadingQuestions = false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  showEditDirectionModal(): void {
+    if (!this.currentPartDirection || !this.currentPartId || !this.modalData?.model?.id) return;
+
+    const modal = this.modal.create({
+      nzTitle: 'Edit Part Direction',
+      nzContent: DirectionEditFormComponent,
+      nzWidth: '600px',
+      nzFooter: null,
+      nzData: {
+        direction: this.currentPartDirection,
+        examId: this.modalData.model.id,
+        partId: this.currentPartId,
+      },
+    });
+
+    modal.afterClose.subscribe((result: Direction | false) => {
+      if (result) {
+        this.currentPartDirection = result;
+      }
     });
   }
 

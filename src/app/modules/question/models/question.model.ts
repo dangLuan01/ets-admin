@@ -39,6 +39,23 @@ export interface Question {
   sub_order?: number;
 }
 
+export interface ExampleData {
+  image_url?: string;
+  explanation?: string;
+  audio_end_ms?: number;
+  audio_start_ms?: number;
+  correct_option?: string;
+}
+
+export interface PartDirection {
+  exam_id: number;
+  part_id: number;
+  direction_text?: string;
+  audio_start_ms?: number;
+  audio_end_ms?: number;
+  example_data?: ExampleData;
+}
+
 export interface QuestionCreateResponse {
   message: string;
   status: 'SUCCESS' | 'ERROR';

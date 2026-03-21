@@ -8,7 +8,8 @@ import {
   ExamStructureResponse, 
   QuestionsByPartResponse,
   UpdateSingleQuestionPayload,
-  UpdateQuestionGroupPayload
+  UpdateQuestionGroupPayload,
+  PartDirectionUpdatePayload
 } from '../models/exam.model';
 
 @Injectable({ providedIn: 'root' })
@@ -47,5 +48,9 @@ export class ExamService {
 
   updateQuestionGroup(payload: UpdateQuestionGroupPayload): Observable<any> {
     return this.http.put(`${this.baseUrl}/exams/question-groups/update`, payload);
+  }
+
+  updatePartDirection(payload: PartDirectionUpdatePayload): Observable<any> {
+    return this.http.put(`${this.baseUrl}/exams/part-direction/update`, payload);
   }
 }

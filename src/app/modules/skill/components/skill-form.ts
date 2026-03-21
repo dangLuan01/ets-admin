@@ -11,6 +11,7 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { SkillService } from '../services/skill.service';
 import { Skill } from '../models/skill.model';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-skill-form',
@@ -32,6 +33,7 @@ export class SkillFormComponent implements OnInit {
   public modalRef = inject(NzModalRef);
   private skillService = inject(SkillService);
   private certificateService = inject(CertificateService);
+  private message = inject(NzMessageService);
 
   validateForm!: FormGroup;
   isEdit = false;
@@ -61,9 +63,25 @@ export class SkillFormComponent implements OnInit {
     }
     const value = this.validateForm.value;
     if (this.isEdit && this.modalData?.model?.id) {
-      this.skillService.update({ ...value, id: this.modalData.model.id }).subscribe(() => this.modalRef.close(true));
+      this.skillService.update({ ...value, id: this.modalData.model.id }).subscribe({
+        next: () => {
+          this.message.success('Skill updated successfully!');
+          this.modalRef.close(true);
+        },
+        error: (err) => {
+          this.message.error(`Failed to update skill: ${err.message}`);
+        }
+      });
     } else {
-      this.skillService.create(value).subscribe(() => this.modalRef.close(true));
+      this.skillService.create(value).subscribe({
+        next: () => {
+          this.message.success('Skill created successfully!');
+          this.modalRef.close(true);
+        },
+        error: (err) => {
+          this.message.error(`Failed to create skill: ${err.message}`);
+        }
+      });
     }
   }
 }

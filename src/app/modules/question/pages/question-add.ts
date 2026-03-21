@@ -15,6 +15,7 @@ import { QuestionService } from '../services/question.service';
 import { SubQuestionFormComponent } from '../components/sub-question-form';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
+import { PartDirectionFormComponent } from '../components/part-direction-form';
 
 @Component({
   selector: 'app-question-add',
@@ -34,6 +35,7 @@ import { NzRadioModule } from 'ng-zorro-antd/radio';
     SubQuestionFormComponent,
     NzDividerModule,
     NzRadioModule,
+    PartDirectionFormComponent,
   ],
 })
 export class QuestionAddPage implements OnInit {
@@ -44,7 +46,7 @@ export class QuestionAddPage implements OnInit {
   parts: any[] = [];
   filteredSkills: any[] = [];
   filteredParts: any[] = [];
-  questionType: 'single' | 'group' = 'single';
+  questionType: 'single' | 'group' | 'part-direction' = 'single';
 
   get subQuestions(): FormArray {
     return this.groupForm.get('sub_questions') as FormArray;

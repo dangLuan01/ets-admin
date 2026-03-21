@@ -1,0 +1,82 @@
+<form nz-form [formGroup]="form" (ngSubmit)="submit()">
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label>Direction Text</nz-form-label>
+          <nz-form-control>
+            <textarea nz-input formControlName="direction_text" rows="4" placeholder="Enter direction text..."></textarea>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label>Audio Start (ms)</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="audio_start_ms" style="width: 100%;"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzSpan]="12">
+        <nz-form-item>
+          <nz-form-label>Audio End (ms)</nz-form-label>
+          <nz-form-control>
+            <nz-input-number formControlName="audio_end_ms" style="width: 100%;"></nz-input-number>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  
+    <div formGroupName="example_data">
+      <h3>Example Data</h3>
+      <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Image URL</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="image_url" placeholder="http://..." />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Correct Option</nz-form-label>
+            <nz-form-control>
+              <input nz-input formControlName="correct_option" placeholder="e.g., A" />
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+      <nz-form-item>
+        <nz-form-label>Explanation</nz-form-label>
+        <nz-form-control>
+          <textarea nz-input formControlName="explanation" rows="2" placeholder="Enter explanation for the example..."></textarea>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-row [nzGutter]="16">
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Example Audio Start (ms)</nz-form-label>
+            <nz-form-control>
+              <nz-input-number formControlName="audio_start_ms" style="width: 100%;"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+        <nz-col [nzSpan]="12">
+          <nz-form-item>
+            <nz-form-label>Example Audio End (ms)</nz-form-label>
+            <nz-form-control>
+              <nz-input-number formControlName="audio_end_ms" style="width: 100%;"></nz-input-number>
+            </nz-form-control>
+          </nz-form-item>
+        </nz-col>
+      </nz-row>
+    </div>
+  
+    <div style="text-align: right; margin-top: 16px;">
+        <button type="button" nz-button [nzType]="'default'" (click)="modalRef.close(false)">Huỷ</button>
+        <button nz-button nzType="primary" htmlType="submit">Update Direction</button>
+    </div>
+</form>

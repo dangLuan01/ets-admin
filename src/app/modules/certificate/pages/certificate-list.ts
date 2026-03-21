@@ -9,6 +9,7 @@ import { NzModalModule, NzModalService } from 'ng-zorro-antd/modal';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzTagModule } from 'ng-zorro-antd/tag';
 import { CertificateFormComponent } from '../components/certificate-form';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-certificate-list',
@@ -29,6 +30,7 @@ export class CertificateListComponent implements OnInit {
   private certificateService = inject(CertificateService);
   private modal = inject(NzModalService);
   private cdr = inject(ChangeDetectorRef);
+  private message = inject(NzMessageService);
 
   certificates: Certificate[] = [];
   page: number = 1;
@@ -69,12 +71,14 @@ export class CertificateListComponent implements OnInit {
           type: 'primary',
           onClick: (componentInstance) => {
             if (componentInstance?.validateForm.valid) {
-              this.certificateService
-                .create(componentInstance.validateForm.value)
-                .subscribe(() => {
+              this.certificateService.create(componentInstance.validateForm.value).subscribe({
+                next: () => {
+                  this.message.success('Certificate created successfully!');
                   this.loadCertificates();
                   modal.destroy();
-                });
+                },
+                error: (err) => this.message.error(`Failed to create certificate: ${err.message}`)
+              });
             } else {
               componentInstance?.validateForm.markAsDirty();
               componentInstance?.validateForm.updateValueAndValidity();
@@ -110,12 +114,14 @@ export class CertificateListComponent implements OnInit {
                   ...res.data,
                   ...componentInstance.validateForm.value,
                 };
-                this.certificateService
-                  .update(updatedCertificate)
-                  .subscribe(() => {
+                this.certificateService.update(updatedCertificate).subscribe({
+                  next: () => {
+                    this.message.success('Certificate updated successfully!');
                     this.loadCertificates();
                     modal.destroy();
-                  });
+                  },
+                  error: (err) => this.message.error(`Failed to update certificate: ${err.message}`)
+                });
               } else {
                 componentInstance?.validateForm.markAsDirty();
                 componentInstance?.validateForm.updateValueAndValidity();

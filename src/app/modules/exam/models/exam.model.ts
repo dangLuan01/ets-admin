@@ -70,6 +70,7 @@ export interface QuestionsByPart {
     exam_id: number;
     part_id: number;
     items: QuestionItem[];
+    direction?: Direction;
 }
 
 export interface QuestionItem {
@@ -150,4 +151,36 @@ export interface SubQuestionPayload {
   sub_order: number;
   correct_answer: string;
   explanation: string | null;
+}
+
+// From GET /exams/{exam_id}/parts/{part_id} -> direction property
+export interface DirectionExample {
+  explanation: string;
+  image_url: string;
+  correct_option: string;
+  audio_start_ms: number;
+  audio_end_ms: number;
+}
+
+export interface Direction {
+  text: string;
+  audio_start_ms: number;
+  audio_end_ms: number;
+  example?: DirectionExample;
+}
+
+// Payload for PUT /api/v1/exams/part-direction/update
+export interface PartDirectionUpdatePayload {
+  exam_id: number;
+  part_id: number;
+  direction_text?: string;
+  audio_start_ms?: number;
+  audio_end_ms?: number;
+  example_data?: {
+    image_url?: string;
+    explanation?: string;
+    audio_end_ms?: number;
+    audio_start_ms?: number;
+    correct_option?: string;
+  } | null;
 }

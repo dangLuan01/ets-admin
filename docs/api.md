@@ -847,6 +847,18 @@ This API retrieves all questions associated with a specific part of an exam.
     "data": {
         "exam_id": 1,
         "part_id": 1,
+        "direction": {
+            "text": "PART 1\nDirections: For each question in this part, you will hear four statements about a picture in your test book. When you hear the statements, you must select the one statement that best describes what you see in the picture. Then find the number of the question on your answer sheet and mark your answer. The statements will not be printed in your test book and will be spoken only one time.",
+            "audio_start_ms": 31000,
+            "audio_end_ms": 60000,
+            "example": {
+                "explanation": "Statement (C), 'They're sitting at a table,' is the best description of the picture, so you should select answer (C) and mark it on your answer sheet.",
+                "image_url": "https://cdn.xoailac.top/ets/image/2024/01/example-1.png",
+                "correct_option": "C",
+                "audio_start_ms": 60000,
+                "audio_end_ms": 95000
+            }
+        }
         "items": [
             {
                 "entity_type": "SINGLE",
@@ -998,6 +1010,11 @@ This API retrieves all questions associated with a specific part of an exam.
     "data": {
         "exam_id": 1,
         "part_id": 3,
+         "direction": {
+            "text": "PART 3\nDirections: You will hear some conversations between two or more people. You will be asked to answer three questions about what the speakers say in each conversation. Select the best response to each question and mark the letter (A), (B), (C), or (D) on your answer sheet. The conversations will not be printed in your test book and will be spoken only one time.",
+            "audio_start_ms": 815000,
+            "audio_end_ms": 846000
+        }
         "items": [
             {
                 "entity_type": "GROUP",
@@ -1158,6 +1175,45 @@ Response:
 }
 
 ---
+
+## Entity: Create Part Direction
+
+---
+
+Create Part Direction
+POST /api/v1/exams/part-direction/create
+
+Request:
+{
+    "exam_id": 5,
+    "part_id": 2,
+    "direction_text":"PART 2 Directions: You will hear a question or statement and three responses spoken in English. They will not be printed in your test book and will be spoken only one time. Select the best response to the question or statement and mark the letter (A), (B), or (C) on your answer sheet.",
+    "audio_start_ms":274000,
+    "audio_end_ms":297000,
+    "example_data": {
+        "image_url": "https://cdn.xoailac.top/ets/image/2024/01/example-1.png", 
+        "explanation": "Statement (C), 'They're sitting at a table,' is the best description.", "audio_end_ms": 95000, 
+        "audio_start_ms": 60000, 
+        "correct_option": "C"
+    }
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+Validation Rules:
+- exam_id: required,
+- part_id: required,
+- direction_text: optional,
+- audio_start_ms: optional,
+- audio_end_ms: optional,
+- example_data: optional
+
+---
+
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400
