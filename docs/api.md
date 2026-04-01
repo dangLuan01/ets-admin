@@ -1214,6 +1214,27 @@ Validation Rules:
 
 ---
 
+## Entity: Import Exam Questions
+
+---
+
+Import question
+POST /api/v1/exams/import
+
+Request form-data:
+{
+    exam_id: 1,
+    file:file.png
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400

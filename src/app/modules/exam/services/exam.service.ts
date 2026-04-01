@@ -9,7 +9,8 @@ import {
   QuestionsByPartResponse,
   UpdateSingleQuestionPayload,
   UpdateQuestionGroupPayload,
-  PartDirectionUpdatePayload
+  PartDirectionUpdatePayload,
+  FilterStructureResponse
 } from '../models/exam.model';
 
 @Injectable({ providedIn: 'root' })
@@ -52,5 +53,13 @@ export class ExamService {
 
   updatePartDirection(payload: PartDirectionUpdatePayload): Observable<any> {
     return this.http.put(`${this.baseUrl}/exams/part-direction/update`, payload);
+  }
+
+  importQuestions(payload: FormData): Observable<any> {
+    return this.http.post(`${this.baseUrl}/exams/import`, payload);
+  }
+
+  getFilterStructure(): Observable<FilterStructureResponse> {
+    return this.http.get<FilterStructureResponse>(`${this.baseUrl}/exams/filter-structure`);
   }
 }

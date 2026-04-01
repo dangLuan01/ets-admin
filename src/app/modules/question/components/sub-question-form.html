@@ -1,6 +1,6 @@
 <div [formGroup]="form">
   <nz-row [nzGutter]="8">
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="4">
       <nz-form-item>
         <nz-form-label nzRequired>Part</nz-form-label>
         <nz-form-control nzErrorTip="Bắt buộc">
@@ -21,14 +21,6 @@
         <nz-form-label>Ảnh</nz-form-label>
         <nz-form-control>
           <input nz-input formControlName="image_url" />
-        </nz-form-control>
-      </nz-form-item>
-    </nz-col>
-    <nz-col [nzSpan]="4">
-      <nz-form-item>
-        <nz-form-label nzRequired>Đáp án đúng</nz-form-label>
-        <nz-form-control nzErrorTip="Bắt buộc">
-          <input nz-input formControlName="correct_answer" />
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -64,7 +56,20 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
-    <nz-col [nzSpan]="2">
+    <nz-col [nzSpan]="10">
+      <nz-form-item>
+        <nz-form-label nzRequired>Đáp án đúng</nz-form-label>
+        <nz-form-control nzErrorTip="Bắt buộc">
+          <nz-radio-group formControlName="correct_answer">
+            <label nz-radio nzValue="A">A</label>
+            <label nz-radio nzValue="B">B</label>
+            <label nz-radio nzValue="C">C</label>
+            <label nz-radio nzValue="D">D</label>
+          </nz-radio-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="4">
       <nz-form-item>
         <nz-form-label>Thứ tự</nz-form-label>
         <nz-form-control>

@@ -4,7 +4,7 @@ export interface Exam {
   cert_id: number;
   title: string;
   year: number;
-  category?: string | null;
+  category_ids: number[] | null;
   total_time: number;
   total_question: number;
   description?: string | null;
@@ -183,4 +183,23 @@ export interface PartDirectionUpdatePayload {
     audio_start_ms?: number;
     correct_option?: string;
   } | null;
+}
+
+// From GET /api/v1/exams/filter-structure
+export interface FilterStructureNode {
+  id: number;
+  name: string;
+  type: string;
+  children?: FilterStructureNode[];
+  // For nz-tree-select
+  key: string;
+  value: number;
+  title: string;
+  isLeaf: boolean;
+}
+
+export interface FilterStructureResponse {
+  data: FilterStructureNode[];
+  message: string;
+  status: 'SUCCESS' | 'ERROR';
 }

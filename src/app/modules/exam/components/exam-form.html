@@ -52,11 +52,16 @@
     </nz-col>
     <nz-col [nzSpan]="24">
       <nz-form-item>
-        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="category">Category</nz-form-label>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="category_ids">Category</nz-form-label>
         <nz-form-control [nzSm]="18" [nzXs]="24">
-          <nz-input-group nzPrefixIcon="tag">
-            <input nz-input formControlName="category" id="category" />
-          </nz-input-group>
+          <nz-tree-select
+            [nzNodes]="categoryNodes"
+            formControlName="category_ids"
+            nzPlaceHolder="Chọn category"
+            nzShowSearch
+            nzCheckable="true"
+          >
+          </nz-tree-select>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -189,13 +194,13 @@
                   <div nz-col [nzSpan]="12">
                     <nz-form-item>
                       <nz-form-label>Audio Start (ms)</nz-form-label>
-                      <nz-form-control><input nz-input formControlName="audio_start_ms"></nz-form-control>
+                      <nz-form-control><input type="number" nz-input formControlName="audio_start_ms"></nz-form-control>
                     </nz-form-item>
                   </div>
                   <div nz-col [nzSpan]="12">
                     <nz-form-item>
                       <nz-form-label>Audio End (ms)</nz-form-label>
-                      <nz-form-control><input nz-input formControlName="audio_end_ms"></nz-form-control>
+                      <nz-form-control><input type="number" nz-input formControlName="audio_end_ms"></nz-form-control>
                     </nz-form-item>
                   </div>
                   <div nz-col [nzSpan]="12">
@@ -245,6 +250,18 @@
                     <nz-form-label>Image Url</nz-form-label>
                     <nz-form-control>
                       <input nz-input formControlName="image_url">
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label>Audio Start Ms</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="audio_start_ms" type="number">
+                    </nz-form-control>
+                  </nz-form-item>
+                   <nz-form-item>
+                    <nz-form-label>Audio End Ms</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="audio_end_ms" type="number">
                     </nz-form-control>
                   </nz-form-item>
                   <div formArrayName="sub_questions">

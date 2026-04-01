@@ -16,6 +16,7 @@ import { SubQuestionFormComponent } from '../components/sub-question-form';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzRadioModule } from 'ng-zorro-antd/radio';
 import { PartDirectionFormComponent } from '../components/part-direction-form';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-question-add',
@@ -57,7 +58,8 @@ export class QuestionAddPage implements OnInit {
     private examService: ExamService,
     private skillService: SkillService,
     private partService: PartMasterService,
-    private questionService: QuestionService
+    private questionService: QuestionService,
+    private message: NzMessageService
   ) {}
 
   ngOnInit(): void {
@@ -132,10 +134,15 @@ export class QuestionAddPage implements OnInit {
 
   submitGroup() {
     if (this.groupForm.valid) {
-      this.questionService.createGroup(this.groupForm.value).subscribe(() => {
-        // show success message and reset form
-        this.groupForm.reset({ entity_type: 'GROUP' });
-        this.selectForm.reset();
+      this.questionService.createGroup(this.groupForm.value).subscribe({
+        next: () => {
+          this.message.success('Question Group created successfully!');
+          this.groupForm.reset({ entity_type: 'GROUP' });
+          this.selectForm.reset();
+        },
+        error: () => {
+          this.message.error('Failed to create question group.');
+        },
       });
     } else {
       this.groupForm.markAllAsTouched();

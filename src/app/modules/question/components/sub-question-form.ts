@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzRadioModule } from 'ng-zorro-antd/radio';
 
 @Component({
   selector: 'app-sub-question-form',
@@ -21,6 +22,7 @@ import { NzDividerModule } from 'ng-zorro-antd/divider';
     NzButtonModule,
     NzGridModule,
     NzDividerModule,
+    NzRadioModule,
   ],
 })
 export class SubQuestionFormComponent implements OnInit {

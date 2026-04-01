@@ -17,7 +17,6 @@
     <tr>
       <th>Title</th>
       <th>Year</th>
-      <th>Category</th>
       <th>Total Time</th>
       <th>Total Question</th>
       <th>Status</th>
@@ -28,7 +27,6 @@
     <tr *ngFor="let data of basicTable.data">
       <td>{{ data.title }}</td>
       <td>{{ data.year }}</td>
-      <td>{{ data.category }}</td>
       <td>{{ data.total_time }}</td>
       <td>{{ data.total_question }}</td>
       <td>
@@ -44,6 +42,14 @@
           (click)="showEditModal(data)"
         >
           <span nz-icon nzType="edit"></span>
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="showImportModal(data)"
+        >
+          <span nz-icon nzType="import"></span>
         </button>
         <button nz-button nzType="primary" nzDanger nzShape="circle">
           <span nz-icon nzType="delete"></span>

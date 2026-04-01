@@ -9,6 +9,7 @@ import { NzTagModule } from 'ng-zorro-antd/tag';
 import { ExamService } from '../services/exam.service';
 import { Exam } from '../models/exam.model';
 import { ExamFormComponent } from '../components/exam-form';
+import { ExamImportComponent } from '../components/exam-import/exam-import';
 
 @Component({
   selector: 'app-exam-list',
@@ -21,6 +22,7 @@ import { ExamFormComponent } from '../components/exam-form';
     NzModalModule,
     NzIconModule,
     NzTagModule,
+    ExamImportComponent,
   ],
   templateUrl: './exam-list.html',
   styleUrls: ['./exam-list.less']
@@ -78,6 +80,21 @@ export class ExamListComponent implements OnInit {
       nzData: {
         isEdit: true,
         model: { ...data }
+      },
+    });
+    modal.afterClose.subscribe((result) => {
+      if (result) this.loadExams();
+    });
+  }
+
+  showImportModal(data: Exam): void {
+    const modal = this.modal.create({
+      nzTitle: 'Import câu hỏi',
+      nzContent: ExamImportComponent,
+      nzWidth: '600px',
+      nzFooter: null,
+      nzData: {
+        exam_id: data.id
       },
     });
     modal.afterClose.subscribe((result) => {

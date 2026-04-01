@@ -1,4 +1,5 @@
 import { NzDividerModule } from 'ng-zorro-antd/divider';
+import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
 import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
@@ -13,7 +14,8 @@ import { NzCardModule } from 'ng-zorro-antd/card';
 import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ExamService } from '../services/exam.service';
-import { Exam, ExamStructure, QuestionItem, QuestionData, GroupData, Direction } from '../models/exam.model';
+import { forkJoin } from 'rxjs';
+import { Exam, ExamStructure, QuestionItem, QuestionData, GroupData, Direction, FilterStructureNode } from '../models/exam.model';
 import { CertificateService } from '../../certificate/services/certificate.service';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { DirectionEditFormComponent } from './direction-edit-form';
@@ -34,6 +36,7 @@ import { DirectionEditFormComponent } from './direction-edit-form';
     NzCardModule,
     NzSpinModule,
     NzDividerModule,
+    NzTreeSelectModule,
   ],
   templateUrl: './exam-form.html',
   styleUrls: ['./exam-form.less']
@@ -51,6 +54,7 @@ export class ExamFormComponent implements OnInit {
   validateForm!: FormGroup;
   isEdit = false;
   certificates: Array<{id: number, name: string}> = [];
+  categoryNodes: FilterStructureNode[] = [];
   
   examStructure: ExamStructure | null = null;
   isLoadingStructure = false;
@@ -64,13 +68,14 @@ export class ExamFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.isEdit = !!this.modalData?.isEdit;
+    
     this.validateForm = this.fb.group({
       cert_id: ['', [Validators.required]],
       title: ['', [Validators.required]],
       year: ['', [Validators.required]],
       total_time: ['', [Validators.required]],
       total_question: ['', [Validators.required]],
-      category: [null],
+      category_ids: [[]],
       description: [null],
       thumbnail: [null],
       audio_full_url: [null],
@@ -81,20 +86,52 @@ export class ExamFormComponent implements OnInit {
     this.certificateService.getAll(1, 50).subscribe(res => {
       this.certificates = res.data.response.map((cert: any) => ({ id: cert.id ?? 0, name: cert.name }));
     });
-    
+
     if (this.isEdit && this.modalData?.model?.id) {
       const examId = this.modalData.model.id;
-      this.examService.getDetail(examId).subscribe(res => {
-        this.validateForm.patchValue(res.data);
-      });
-
       this.isLoadingStructure = true;
-      this.examService.getExamStructure(examId).subscribe(res => {
-        this.examStructure = res.data;
+
+      forkJoin({
+        categories: this.examService.getFilterStructure(),
+        details: this.examService.getDetail(examId),
+        structure: this.examService.getExamStructure(examId)
+      }).subscribe(({ categories, details, structure }) => {
+        this.categoryNodes = this.mapTreeNodes(categories.data);
+        
+        const examData = details.data;
+        if (examData.category_ids) {
+          // WORKAROUND: Convert IDs to strings for nz-tree-select to correctly display checked values.
+          (examData as any).category_ids = examData.category_ids.map(id => `${id}`);
+        }
+
+        this.validateForm.patchValue(examData);
+        this.examStructure = structure.data;
         this.isLoadingStructure = false;
         this.cdr.detectChanges();
       });
+
+    } else {
+      // Create mode: only needs categories
+      this.examService.getFilterStructure().subscribe(res => {
+        this.categoryNodes = this.mapTreeNodes(res.data);
+      });
     }
+  }
+
+  private mapTreeNodes(nodes: FilterStructureNode[]): FilterStructureNode[] {
+    return nodes.map(node => {
+      const newNode: FilterStructureNode = {
+        ...node,
+        key: `${node.id}`,
+        value: node.id,
+        title: node.name,
+        isLeaf: !node.children || node.children.length === 0
+      };
+      if (node.children && node.children.length > 0) {
+        newNode.children = this.mapTreeNodes(node.children);
+      }
+      return newNode;
+    });
   }
 
   loadQuestionsForPart(partId: number): void {
@@ -148,8 +185,8 @@ export class ExamFormComponent implements OnInit {
       entity_type: ['SINGLE'],
       question_text: [data?.question_text],
       image_url: [data?.image_url],
-      audio_start_ms: [data?.audio_start_ms],
-      audio_end_ms: [data?.audio_end_ms],
+      audio_start_ms: Number(data?.audio_start_ms),
+      audio_end_ms: Number(data?.audio_end_ms),
       sub_order: Number(data?.sub_order),
       transcript: [data?.transcript],
       option_a: [data?.options?.['A']],
@@ -182,8 +219,8 @@ export class ExamFormComponent implements OnInit {
       order_index: [orderIndex],
       passage_text: [data?.passage_text],
       image_url: [data?.image_url],
-      audio_start_ms: [data?.audio_start_ms],
-      audio_end_ms: [data?.audio_end_ms],
+      audio_start_ms: Number(data?.audio_start_ms),
+      audio_end_ms: Number(data?.audio_end_ms),
       transcript: [data?.transcript],
       sub_questions: this.fb.array(subQuestions)
     });
@@ -227,14 +264,21 @@ export class ExamFormComponent implements OnInit {
       });
       return;
     }
-    const value = this.validateForm.value;
+
+    const formValue = { ...this.validateForm.value };
+
+    // WORKAROUND: Convert string IDs from tree-select back to numbers for the API.
+    if (formValue.category_ids && Array.isArray(formValue.category_ids)) {
+      formValue.category_ids = formValue.category_ids.map((id: string) => parseInt(id, 10));
+    }
+
     if (this.isEdit && this.modalData?.model?.id) {
-      this.examService.update({ ...value, id: this.modalData.model.id }).subscribe(() => {
+      this.examService.update({ ...formValue, id: this.modalData.model.id }).subscribe(() => {
         this.message.success('Exam details updated successfully!');
         // Note: we are not closing the modal on purpose, so user can continue editing questions.
       });
     } else {
-      this.examService.create(value).subscribe(() => {
+      this.examService.create(formValue).subscribe(() => {
         this.modalRef.close(true); // Close on create
       });
     }
