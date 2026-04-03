@@ -17,6 +17,11 @@ export const routes: Routes = [
       import('./modules/skill/skill.routes').then((m) => m.SKILL_ROUTES),
   },
   {
+    path: 'category',
+    loadChildren: () =>
+      import('./modules/category/category.routes').then((m) => m.CATEGORY_ROUTES),
+  },
+  {
     path: 'part-master',
     loadChildren: () =>
       import('./modules/part-master/part-master.routes').then((m) => m.PART_MASTER_ROUTES),

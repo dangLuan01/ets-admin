@@ -1,0 +1,58 @@
+<button nz-button nzType="primary" (click)="showCreateModal()">
+  <span nz-icon nzType="plus"></span>
+  Thêm mới
+</button>
+<nz-divider></nz-divider>
+<nz-table
+  #basicTable
+  [nzData]="categories"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzPageIndex]="page"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="onPageIndexChange($event)"
+  [nzLoading]="loading"
+>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên</th>
+      <th>Loại</th>
+      <th>Trạng thái</th>
+      <th>Lọc được?</th>
+      <!-- <th>Cha</th> -->
+      <th>Thứ tự</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let cat of basicTable.data">
+      <td>{{ cat.id }}</td>
+      <td>{{ cat.name }}</td>
+      <td>{{ cat.type }}</td>
+      <td>
+        <nz-tag [nzColor]="cat.status === 1 ? 'green' : 'red'">
+          {{ cat.status === 1 ? 'Hoạt động' : 'Không hoạt động' }}
+        </nz-tag>
+      </td>
+      <td>
+        <nz-tag [nzColor]="cat.is_filterable === 1 ? 'blue' : 'default'">
+          {{ cat.is_filterable === 1 ? 'Có' : 'Không' }}
+        </nz-tag>
+      </td>
+      <!-- <td>{{ getParentName(cat.parent_id) }}</td> -->
+      <td>{{ cat.priority }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="showEditModal(cat)"
+        >
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

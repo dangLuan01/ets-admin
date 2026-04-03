@@ -13,18 +13,20 @@ Base URL:
 /api/v1
 
 Common Success Response:
+```json
 {
   "data": any,
   "message": string,
   "status": "SUCCESS"
 }
-
+```
 Common Error Response:
+```json
 {
   "message": string,
   "status": "ERROR"
 }
-
+```
 ---
 
 ## Entity: Certificate
@@ -42,7 +44,7 @@ Fields:
 ---
 
 Get All Certificates
-GET /certificates/get-all?page=1&limit=20
+GET /certificates/get-all
 
 Query Parameters:
 - page (number): Page number
@@ -50,6 +52,7 @@ Query Parameters:
 
 
 Response:
+```json
 {
     "data": {
         "pagination": {
@@ -62,25 +65,18 @@ Response:
         },
         "response": [
             {
-                "id": 1,
-                "code": "TOEIC_LR",
-                "name": "TOEIC Reading & Listening",
-                "description": "Chứng chỉ TOEIC 2 kỹ năng",
-                "status": 1
-            },
-            {
-                "id": 2,
-                "code": "IELTS_AC",
-                "name": "IELTS Academic",
-                "description": "Chứng chỉ IELTS Học thuật",
-                "status": 1
+                "id": 0,
+                "code": "string",
+                "name": "string",
+                "description": "string",
+                "status": 0
             }
         ]
     },
     "message": "Successfully.",
     "status": "SUCCESS"
 }
-
+```
 ---
 
 Get Certificate Detail (Edit)
@@ -90,55 +86,61 @@ Path Parameter:
 - id (number): Certificate ID
 
 Response:
+```json
 {
   "data": {
     "id": 1,
-    "code": "TOEIC_WS",
-    "name": "TOEIC Writing & Speaking",
-    "description": "Chứng chỉ TOEIC 2 kỹ năng",
+    "code": "string",
+    "name": "string",
+    "description": "string",
     "status": 1
   },
   "message": "Successfully.",
   "status": "SUCCESS"
 }
-
+```
 ---
 
 Create Certificate
 POST /certificates/create
 
 Request:
+```json
 {
-  "code": "abc1",
-  "name": "xyz1",
-  "description": "321"
+  "code": "string",
+  "name": "string",
+  "description": "string"
 }
+```
 
 Response:
+```json
 {
   "message": "Successfully.",
   "status": "SUCCESS"
 }
-
+```
 ---
 
 Update Certificate
 PUT /certificates/update
 
 Request:
+```json
 {
-  "id": 3,
-  "code": "TOEIC_WS",
-  "name": "TOEIC Writing & Speaking",
-  "description": "Chứng chỉ TOEIC 2 kỹ năng"
+  "id": 0,
+  "code": "string",
+  "name": "string",
+  "description": "string"
 }
-
+```
 Response:
+```json
 {
   "message": "Successfully.",
   "status": "SUCCESS"
 }
-
+```
 ---
 
 UI Mapping:
@@ -171,7 +173,7 @@ Fields:
 
 Get All Skills
 
-GET /skills/get-all?page=1&limit=20
+GET /skills/get-all
 
 Query Parameters:
 - page (number): Page number
@@ -179,6 +181,7 @@ Query Parameters:
 
 
 Response:
+```json
 {
     "data": {
         "pagination": {
@@ -191,26 +194,19 @@ Response:
         },
         "response": [
             {
-                "id": 1,
-                "cert_id": 1,
-                "code": "LISTENING",
-                "name": "Listening Test",
-                "order_index": 1,
-                "status": 1
-            },
-            {
-                "id": 2,
-                "cert_id": 1,
-                "code": "READING",
-                "name": "Reading Test",
-                "order_index": 2,
-                "status": 1
+                "id": 0,
+                "cert_id": 0,
+                "code": "string",
+                "name": "string",
+                "order_index": 0,
+                "status": 0
             }
         ]
     },
     "message": "Successfully.",
     "status": "SUCCESS"
 }
+```
 
 ---
 
@@ -221,18 +217,20 @@ Path Parameter:
 - id (number): Skill ID
 
 Response:
+```json
 {
     "data": {
-        "id": 1,
-        "cert_id": 1,
-        "code": "LISTENING",
-        "name": "Listening Test",
-        "order_index": 1,
-        "status": 1
+        "id": 0,
+        "cert_id": 0,
+        "code": "string",
+        "name": "string",
+        "order_index": 0,
+        "status": 0
     },
     "message": "Successfully.",
     "status": "SUCCESS"
 }
+```
 
 ---
 
@@ -474,20 +472,6 @@ Response:
                 "audio_full_url": "https://cdn.xoailac.top/ets/audio/2024/01/output.m3u8",
                 "status": 1,
                 "created_at": "2025-12-21T16:37:07Z"
-            },
-            {
-                "id": 5,
-                "cert_id": 1,
-                "title": "ETS 2024 - TEST 03",
-                "year": 2024,
-                "category": null,
-                "total_time": 120,
-                "total_question": 200,
-                "description": null,
-                "thumbnail": null,
-                "audio_full_url": null,
-                "status": 1,
-                "created_at": "2026-03-11T08:09:22Z"
             }
         ]
     },
@@ -694,28 +678,6 @@ Request:
             "option_c": "CC",
             "option_d": "DD",
             "sub_order": 1
-        },
-        {
-            "part": 3,
-            "question_text": "abc",
-            "image_url":"http://question2"
-            "correct_answer":"A",
-            "option_a": "AA",
-            "option_b": "BB",
-            "option_c": "CC",
-            "option_d": "DD",
-            "sub_order": 2
-        },
-        {
-            "part": 3,
-            "question_text": "abc",
-            "image_url": "http://question3",
-            "correct_answer":"A",
-            "option_a": "AA",
-            "option_b": "BB",
-            "option_c": "CC",
-            "option_d": "DD",
-            "sub_order": 3
         }
     ]
 }
@@ -771,26 +733,6 @@ This API retrieves the structure of a specific exam, including its skills and pa
                         "part_id": 8,
                         "part_name": "General Introduction",
                         "part_number": 0
-                    },
-                    {
-                        "part_id": 1,
-                        "part_name": "Photographs",
-                        "part_number": 1
-                    },
-                    {
-                        "part_id": 2,
-                        "part_name": "Question-Response",
-                        "part_number": 2
-                    },
-                    {
-                        "part_id": 3,
-                        "part_name": "Conversations",
-                        "part_number": 3
-                    },
-                    {
-                        "part_id": 4,
-                        "part_name": "Short Talks",
-                        "part_number": 4
                     }
                 ]
             },
@@ -803,21 +745,6 @@ This API retrieves the structure of a specific exam, including its skills and pa
                         "part_id": 9,
                         "part_name": "General Reading Introduction",
                         "part_number": 0
-                    },
-                    {
-                        "part_id": 5,
-                        "part_name": "Incomplete Sentences",
-                        "part_number": 5
-                    },
-                    {
-                        "part_id": 6,
-                        "part_name": "Text Completion",
-                        "part_number": 6
-                    },
-                    {
-                        "part_id": 7,
-                        "part_name": "Reading Comprehension",
-                        "part_number": 7
                     }
                 ]
             }
@@ -848,12 +775,12 @@ This API retrieves all questions associated with a specific part of an exam.
         "exam_id": 1,
         "part_id": 1,
         "direction": {
-            "text": "PART 1\nDirections: For each question in this part, you will hear four statements about a picture in your test book. When you hear the statements, you must select the one statement that best describes what you see in the picture. Then find the number of the question on your answer sheet and mark your answer. The statements will not be printed in your test book and will be spoken only one time.",
+            "text": "string",
             "audio_start_ms": 31000,
             "audio_end_ms": 60000,
             "example": {
-                "explanation": "Statement (C), 'They're sitting at a table,' is the best description of the picture, so you should select answer (C) and mark it on your answer sheet.",
-                "image_url": "https://cdn.xoailac.top/ets/image/2024/01/example-1.png",
+                "explanation": "string",
+                "image_url": "string",
                 "correct_option": "C",
                 "audio_start_ms": 60000,
                 "audio_end_ms": 95000
@@ -882,121 +809,6 @@ This API retrieves all questions associated with a specific part of an exam.
                         "D": null
                     }
                 }
-            },
-            {
-                "entity_type": "SINGLE",
-                "entity_id": 2,
-                "order_index": 2,
-                "question_data": {
-                    "question_id": 2,
-                    "question_text": null,
-                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-2.png",
-                    "audio_start_ms": 125000,
-                    "audio_end_ms": 146000,
-                    "correct_answer": "B",
-                    "display_number": 2,
-                    "sub_order": 2,
-                    "explanation": null,
-                    "transcript": null,
-                    "options": {
-                        "A": null,
-                        "B": null,
-                        "C": null,
-                        "D": null
-                    }
-                }
-            },
-            {
-                "entity_type": "SINGLE",
-                "entity_id": 3,
-                "order_index": 3,
-                "question_data": {
-                    "question_id": 3,
-                    "question_text": null,
-                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-3.png",
-                    "audio_start_ms": 157000,
-                    "audio_end_ms": 180000,
-                    "correct_answer": "B",
-                    "display_number": 3,
-                    "sub_order": 3,
-                    "explanation": null,
-                    "transcript": null,
-                    "options": {
-                        "A": null,
-                        "B": null,
-                        "C": null,
-                        "D": null
-                    }
-                }
-            },
-            {
-                "entity_type": "SINGLE",
-                "entity_id": 4,
-                "order_index": 4,
-                "question_data": {
-                    "question_id": 4,
-                    "question_text": null,
-                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-4.png",
-                    "audio_start_ms": 185000,
-                    "audio_end_ms": 209000,
-                    "correct_answer": "D",
-                    "display_number": 4,
-                    "sub_order": 4,
-                    "explanation": null,
-                    "transcript": null,
-                    "options": {
-                        "A": null,
-                        "B": null,
-                        "C": null,
-                        "D": null
-                    }
-                }
-            },
-            {
-                "entity_type": "SINGLE",
-                "entity_id": 5,
-                "order_index": 5,
-                "question_data": {
-                    "question_id": 5,
-                    "question_text": null,
-                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-5.png",
-                    "audio_start_ms": 212000,
-                    "audio_end_ms": 236000,
-                    "correct_answer": "C",
-                    "display_number": 5,
-                    "sub_order": 5,
-                    "explanation": null,
-                    "transcript": null,
-                    "options": {
-                        "A": null,
-                        "B": null,
-                        "C": null,
-                        "D": null
-                    }
-                }
-            },
-            {
-                "entity_type": "SINGLE",
-                "entity_id": 6,
-                "order_index": 6,
-                "question_data": {
-                    "question_id": 6,
-                    "question_text": null,
-                    "image_url": "https://cdn.xoailac.top/ets/image/2024/01/part1-6.png",
-                    "audio_start_ms": 241000,
-                    "audio_end_ms": 264000,
-                    "correct_answer": "C",
-                    "display_number": 6,
-                    "sub_order": 6,
-                    "explanation": null,
-                    "transcript": null,
-                    "options": {
-                        "A": null,
-                        "B": null,
-                        "C": null,
-                        "D": null
-                    }
-                }
             }
         ]
     },
@@ -1011,9 +823,9 @@ This API retrieves all questions associated with a specific part of an exam.
         "exam_id": 1,
         "part_id": 3,
          "direction": {
-            "text": "PART 3\nDirections: You will hear some conversations between two or more people. You will be asked to answer three questions about what the speakers say in each conversation. Select the best response to each question and mark the letter (A), (B), (C), or (D) on your answer sheet. The conversations will not be printed in your test book and will be spoken only one time.",
-            "audio_start_ms": 815000,
-            "audio_end_ms": 846000
+            "text": "string",
+            "audio_start_ms": 0,
+            "audio_end_ms": 0
         }
         "items": [
             {
@@ -1045,42 +857,6 @@ This API retrieves all questions associated with a specific part of an exam.
                                 "C": "A fund-raiser",
                                 "D": "A company picnic"
                             }
-                        },
-                        {
-                            "question_id": 11,
-                            "question_text": "What dose the woman ask for?",
-                            "image_url": null,
-                            "audio_start_ms": null,
-                            "audio_end_ms": null,
-                            "correct_answer": "B",
-                            "display_number": 33,
-                            "sub_order": 2,
-                            "explanation": null,
-                            "transcript": null,
-                            "options": {
-                                "A": "A guest list",
-                                "B": "A dessert recipe",
-                                "C": "A business card",
-                                "D": "A promotional code"
-                            }
-                        },
-                        {
-                            "question_id": 12,
-                            "question_text": "What dose the man recommend doing?",
-                            "image_url": null,
-                            "audio_start_ms": null,
-                            "audio_end_ms": null,
-                            "correct_answer": "B",
-                            "display_number": 34,
-                            "sub_order": 3,
-                            "explanation": null,
-                            "transcript": null,
-                            "options": {
-                                "A": "Returing some merchandise",
-                                "B": "Watching a video",
-                                "C": "Creating an account",
-                                "D": "Reading a review"
-                            }
                         }
                     ]
                 }
@@ -1101,6 +877,7 @@ Update Question Single
 PUT /api/v1/exams/questions
 
 Request:
+```json
 {
   "exam_id": 1,
   "part_id": 5,
@@ -1112,67 +889,57 @@ Request:
   "option_d": "attended",
   "correct_answer": "A",
   "explanation": "Cấu trúc giả định (Subjunctive): request that S + V(nguyên thể).",
-  
-  // Các trường không dùng đến (như Audio/Ảnh cho Part 5) thì Frontend cứ gửi null
   "image_url": null,
   "audio_start_ms": null,
   "audio_end_ms": null,
   "transcript": null,
   "tags": "ETS_2024, Grammar"
 }
-
+```
 Response:
+```json
 {
   "message": "Successfully.",
   "status": "SUCCESS"
 }
+```
 
 ---
 
 Update Question Group
 PUT /api/v1/exams/question-groups
 
+```json
 Request:
 {
-  "exam_id": 1,
-  "part_id": 7,
-
-  // --- THÔNG TIN CỦA ĐOẠN VĂN/AUDIO CHUNG (PARENT) ---
-  "passage_text": "<p>Dear Mr. Smith, this letter is to inform you about your recent order. Unfortunately, the item is out of stock.</p>",
-  "image_url": "https://cdn.domain.com/images/part7_email_01.png",
+  "exam_id": 0,
+  "part_id": 0,
+  "passage_text": "string",
+  "image_url": "string",
   "audio_start_ms": null,
   "audio_end_ms": null,
   "transcript": null,
-  "explanation": "Đoạn văn nói về việc giao hàng trễ do hết hàng trong kho.",
-  
-  // --- DANH SÁCH CÁC CÂU HỎI CON (CHILDREN) ---
+  "explanation": "string",
   "sub_questions": [
     {
-      "question_text": "Why was the letter written?",
-      "option_a": "To complain about a service",
-      "option_b": "To inform about an order status",
-      "option_c": "To invite him to an event",
-      "option_d": "To ask for a refund",
-      "correct_answer": "B",
-      "explanation": "Thông tin nằm ở dòng đầu tiên của bức thư."
-    },
-    {
-      "question_text": "What is true about the item Mr. Smith ordered?",
-      "option_a": "It is currently unavailable.",
-      "option_b": "It is cheaper than expected.",
-      "option_c": "It was damaged in transit.",
-      "option_d": "It has been shipped.",
-      "correct_answer": "A",
-      "explanation": "Cụm từ 'out of stock' đồng nghĩa với 'currently unavailable'."
+      "question_text": "string",
+      "option_a": "string",
+      "option_b": "string",
+      "option_c": "string",
+      "option_d": "string",
+      "correct_answer": "string",
+      "explanation": "string"
     }
   ]
 }
-
+```
+```json
 Response:
 {
   "message": "Successfully.",
   "status": "SUCCESS"
 }
+```
 
 ---
 
@@ -1182,28 +949,30 @@ Response:
 
 Create Part Direction
 POST /api/v1/exams/part-direction/create
-
+```json
 Request:
 {
-    "exam_id": 5,
-    "part_id": 2,
-    "direction_text":"PART 2 Directions: You will hear a question or statement and three responses spoken in English. They will not be printed in your test book and will be spoken only one time. Select the best response to the question or statement and mark the letter (A), (B), or (C) on your answer sheet.",
-    "audio_start_ms":274000,
-    "audio_end_ms":297000,
+    "exam_id": 0,
+    "part_id": 0,
+    "direction_text":"string",
+    "audio_start_ms": 0,
+    "audio_end_ms": 0,
     "example_data": {
-        "image_url": "https://cdn.xoailac.top/ets/image/2024/01/example-1.png", 
-        "explanation": "Statement (C), 'They're sitting at a table,' is the best description.", "audio_end_ms": 95000, 
-        "audio_start_ms": 60000, 
-        "correct_option": "C"
+        "image_url": "string", 
+        "explanation": "string", 
+        "audio_end_ms": 0, 
+        "audio_start_ms": 0, 
+        "correct_option": "string"
     }
 }
-
+```
 Response:
+```json
 {
   "message": "Successfully.",
   "status": "SUCCESS"
 }
-
+```
 Validation Rules:
 - exam_id: required,
 - part_id: required,
@@ -1235,6 +1004,214 @@ Response:
 
 ---
 
+## Entity: Category
+
+---
+
+Get All
+GET /api/v1/category/get-all
+
+Query Parameter:
+limit:10,
+page:1
+
+Response:
+```json
+{
+    "data": {
+        "pagination": {
+            "page": 1,
+            "limit": 10,
+            "total_records": 10,
+            "total_pages": 1,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 1,
+                "parent_id": null,
+                "name": "Loại đề",
+                "slug": null,
+                "type": "collection",
+                "status": 1,
+                "is_filterable": 1,
+                "priority": 1
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Structure Parent
+GET /api/v1/category/structure
+
+Response:
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "Loại đề",
+            "children": [
+                {
+                    "id": 2,
+                    "name": "Full Test (200 câu)"
+                }
+            ]
+        }
+    ],
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Category Detail (Edit)
+GET /api/v1/category/edit/{id}
+
+Path Parameter:
+- id (number): Category ID
+
+Response:
+```json
+{
+    "data": {
+        "id": 2,
+        "parent_id": 1,
+        "name": "Full Test (200 câu)",
+        "slug": null,
+        "type": "collection",
+        "status": 1,
+        "is_filterable": 1,
+        "priority": 1
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Create Category
+POST /api/v1/category/create
+
+Request:
+{
+    "parent_id": null,
+    "name":null,
+    "slug":"",
+    "type": "",
+    "status": 1,
+    "is_filterable": 1,
+    "priority":9999
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+Update Category
+PUT /api/v1/category/update
+
+Request:
+{
+    "id": 3,
+    "parent_id": null,
+    "name":null,
+    "slug":"",
+    "type": "",
+    "status": 1,
+    "is_filterable": 1,
+    "priority":9999
+}
+
+Response:
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- parent_id: optional,
+- name: required
+- slug: optional,
+- type: required,
+- is_filterable: required
+- priority: required
+- status: required
+
+---
+
+## Entity: Authenticator
+
+---
+
+Login
+POST /api/v1/auth/login
+
+Request:
+```json
+{
+    "email":"string",
+    "password":"string"
+}
+```
+
+Response:
+```json
+{
+    "data": {
+        "access_token": "string",
+        "refresh_token": "string",
+        "expires_in": 0
+    },
+    "message": "string",
+    "status": "string"
+}
+```
+
+---
+
+Refresh Token
+
+POST /api/v1/auth/refresh
+
+Request:
+```json
+{
+    "refresh_token":"string"
+}
+```
+
+Response:
+```json
+{
+    "data": {
+        "access_token": "string",
+        "refresh_token": "string",
+        "expires_in": 0
+    },
+    "message": "string",
+    "status": "string"
+}
+```
+
+---
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400

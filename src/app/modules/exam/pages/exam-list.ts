@@ -22,7 +22,7 @@ import { ExamImportComponent } from '../components/exam-import/exam-import';
     NzModalModule,
     NzIconModule,
     NzTagModule,
-    ExamImportComponent,
+    //ExamImportComponent,
   ],
   templateUrl: './exam-list.html',
   styleUrls: ['./exam-list.less']
