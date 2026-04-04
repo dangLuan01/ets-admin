@@ -60,6 +60,6 @@ export class ExamService {
   }
 
   getFilterStructure(): Observable<FilterStructureResponse> {
-    return this.http.get<FilterStructureResponse>(`${this.baseUrl}/exams/filter-structure`);
+    return this.http.get<FilterStructureResponse>(`${this.baseUrl}/category/structure`);
   }
 }
