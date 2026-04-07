@@ -5,6 +5,7 @@ import { BehaviorSubject, Observable, of, throwError } from 'rxjs';
 import { tap } from 'rxjs/operators';
 import { AuthToken } from '../models/auth.model';
 import { Router } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -13,7 +14,7 @@ export class AuthService {
   private http = inject(HttpClient);
   private platformId = inject(PLATFORM_ID);
   private router = inject(Router);
-  private baseUrl = 'http://localhost:8080/api/v1/auth';
+  private baseUrl = `${environment.apiUrl}/auth`;
   private readonly TOKEN_KEY = 'auth_token';
 
   private isAuthenticatedSubject: BehaviorSubject<boolean>;
@@ -53,7 +54,7 @@ export class AuthService {
     if (!token) {
       return throwError(() => new Error('No token available'));
     }
-    return this.http.post<any>(`${this.baseUrl}/refresh`, { refreshToken: token.refreshToken }).pipe(
+    return this.http.post<any>(`${this.baseUrl}/refresh`, { refresh_token: token.refreshToken }).pipe(
       tap((response) => {
         if (response.data?.access_token) {
            const authToken: AuthToken = {

@@ -12,10 +12,11 @@ import {
   PartDirectionUpdatePayload,
   FilterStructureResponse
 } from '../models/exam.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({ providedIn: 'root' })
 export class ExamService {
-  private baseUrl = 'http://localhost:8080/api/v1';
+  private baseUrl = `${environment.apiUrl}`;
 
   constructor(private http: HttpClient) {}
 

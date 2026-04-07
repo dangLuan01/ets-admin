@@ -5,13 +5,14 @@ import {
   Certificate,
   CertificateApiResponse,
 } from '../models/certificate.model';
+import { environment } from '../../../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class CertificateService {
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/v1/certificates';
+  private apiUrl = `${environment.apiUrl}/certificates`;
 
   getAll(
     page: number,
