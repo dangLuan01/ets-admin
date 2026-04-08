@@ -1,0 +1,12 @@
+# Các file và thư mục bỏ qua khi build Docker image
+.git
+.gitignore
+.angular
+node_modules
+dist
+npm-debug.log
+Dockerfile
+.dockerignore
+.vscode
+README.md
+GEMINI.md

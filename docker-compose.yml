@@ -1,0 +1,20 @@
+services:
+  admin_ets:
+    build:
+      dockerfile: Dockerfile
+    container_name: admin_app_ets
+    #env_file: .env
+    expose:
+      - "4200"
+    environment:
+      - VIRTUAL_HOST=admin.vidhub.io.vn
+      - LETSENCRYPT_HOST=admin.vidhub.io.vn
+      - LETSENCRYPT_EMAIL=ml2673572@gmail.com
+      - VIRTUAL_PORT=4200
+    networks:
+      - app-network
+    restart: unless-stopped
+networks:
+  app-network:
+    external: true
+    name: app-network
