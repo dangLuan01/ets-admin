@@ -1,0 +1,74 @@
+<nz-layout class="app-layout">
+  <nz-sider
+    class="menu-sidebar"
+    nzCollapsible
+    nzWidth="256px"
+    nzBreakpoint="md"
+    [(nzCollapsed)]="isCollapsed"
+    [nzTrigger]="null"
+  >
+    <div class="sidebar-logo">
+      <a>
+        <h1>ETS Admin</h1>
+      </a>
+    </div>
+    <ul nz-menu nzTheme="dark" nzMode="inline" [nzInlineCollapsed]="isCollapsed">
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/welcome">
+          <span nz-icon nzType="home"></span>
+          <span>Welcome</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/certificate">
+          <span nz-icon nzType="file-text"></span>
+          <span>Certificate</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/skill">
+          <span nz-icon nzType="book"></span>
+          <span>Skill</span>
+        </a>
+      </li>
+       <li nz-menu-item nzMatchRouter>
+         <a routerLink="/category">
+           <span nz-icon nzType="folder"></span>
+           <span>Category</span>
+         </a>
+       </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/part-master">
+          <span nz-icon nzType="appstore"></span>
+          <span>Part Master</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/exam">
+          <span nz-icon nzType="solution"></span>
+          <span>Exam</span>
+        </a>
+      </li>
+      <li nz-menu-item nzMatchRouter>
+        <a routerLink="/question/add">
+          <span nz-icon nzType="question-circle"></span>
+          <span>Question</span>
+        </a>
+      </li>
+    </ul>
+  </nz-sider>
+  <nz-layout>
+    <nz-header>
+      <div class="app-header">
+        <span class="header-trigger" (click)="isCollapsed = !isCollapsed">
+          <nz-icon class="trigger" [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'" />
+        </span>
+      </div>
+    </nz-header>
+    <nz-content>
+      <div class="inner-content">
+        <router-outlet></router-outlet>
+      </div>
+    </nz-content>
+  </nz-layout>
+</nz-layout>

@@ -1,0 +1,35 @@
+<form nz-form [formGroup]="validateForm">
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="code">Mã</nz-form-label>
+    <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+      <nz-input-group nzPrefixIcon="number">
+        <input nz-input formControlName="code" id="code" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="name">Tên</nz-form-label>
+    <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+      <nz-input-group nzPrefixIcon="font-colors">
+        <input nz-input formControlName="name" id="name" />
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="description">Mô tả</nz-form-label>
+    <nz-form-control [nzSm]="20" [nzXs]="24">
+      <nz-input-group nzPrefixIcon="file-text">
+        <textarea nz-input formControlName="description" id="description" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+      </nz-input-group>
+    </nz-form-control>
+  </nz-form-item>
+  <nz-form-item>
+    <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+    <nz-form-control [nzSm]="20" [nzXs]="24">
+      <nz-select formControlName="status" id="status">
+        <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+        <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+      </nz-select>
+    </nz-form-control>
+  </nz-form-item>
+</form>

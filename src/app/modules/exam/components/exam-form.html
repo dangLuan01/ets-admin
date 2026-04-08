@@ -1,0 +1,328 @@
+<form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm()">
+  <nz-row [nzGutter]="16">
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="cert_id">Certificate</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-select formControlName="cert_id" id="cert_id" nzPlaceHolder="Chọn chứng chỉ">
+            <nz-option *ngFor="let cert of certificates" [nzValue]="cert.id" [nzLabel]="cert.name"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="title">Title</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="font-colors">
+            <input nz-input formControlName="title" id="title" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="year">Year</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="calendar">
+            <input nz-input formControlName="year" id="year" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="total_time">Total Time</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="clock-circle">
+            <input nz-input formControlName="total_time" id="total_time" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="total_question">Total Question</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="number">
+            <input nz-input formControlName="total_question" id="total_question" type="number" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="category_ids">Category</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-tree-select
+            [nzNodes]="categoryNodes"
+            formControlName="category_ids"
+            nzPlaceHolder="Chọn category"
+            nzShowSearch
+            nzCheckable="true"
+          >
+          </nz-tree-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">Description</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="info-circle">
+            <input nz-input formControlName="description" id="description" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="thumbnail">Thumbnail</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="picture">
+            <input nz-input formControlName="thumbnail" id="thumbnail" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="audio_full_url">Audio Full URL</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-input-group nzPrefixIcon="audio">
+            <input nz-input formControlName="audio_full_url" id="audio_full_url" />
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-select formControlName="status" id="status">
+            <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+            <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+  </nz-row>
+
+  <ng-container *ngIf="isEdit">
+    <nz-divider></nz-divider>
+    <h3>Exam Structure</h3>
+    <nz-spin [nzSpinning]="isLoadingStructure">
+      <nz-collapse *ngIf="examStructure">
+        <nz-collapse-panel *ngFor="let skill of examStructure.blueprint" [nzHeader]="skill.skill_name">
+          <nz-list nzBordered nzSize="small">
+            <nz-list-item *ngFor="let part of skill.parts" (click)="loadQuestionsForPart(part.part_id)" [class.active]="part.part_id === currentPartId">
+              Part {{ part.part_number }}: {{ part.part_name }}
+            </nz-list-item>
+          </nz-list>
+        </nz-collapse-panel>
+      </nz-collapse>
+    </nz-spin>
+
+    <nz-card *ngIf="currentPartId" [nzTitle]="'Part ' + currentPartId + ' Details'" style="margin-top: 16px;">
+      <ng-container *ngIf="currentPartDirection">
+        <div class="direction-section">
+          <h4>
+            Part Direction
+            <button type="button" nz-button nzType="link" (click)="showEditDirectionModal()">
+              <span nz-icon nzType="edit"></span>Edit Direction
+            </button>
+          </h4>
+          <p>{{ currentPartDirection.text }}</p>
+          <p><strong>Audio:</strong> {{ currentPartDirection.audio_start_ms }}ms - {{ currentPartDirection.audio_end_ms }}ms</p>
+          <div *ngIf="currentPartDirection.example">
+            <h5>Example</h5>
+            <p>{{ currentPartDirection.example.explanation }}</p>
+          </div>
+        </div>
+        <nz-divider></nz-divider>
+      </ng-container>
+
+      <nz-spin [nzSpinning]="isLoadingQuestions">
+        <div formArrayName="questions">
+          <div *ngFor="let questionControl of questions.controls; let i = index" [formGroupName]="i" class="question-item">
+            <ng-container [ngSwitch]="questionControl.value.entity_type">
+              
+              <!-- SINGLE Question Type Form -->
+              <nz-card *ngSwitchCase="'SINGLE'" [nzTitle]="'Question ' + (questionControl.get('display_number')?.value)" nzType="inner" class="single-question-card" [nzExtra]="extraSaveTpl">
+                <ng-template #extraSaveTpl>
+                  <button type="button" nz-button nzType="primary" nzSize="small" (click)="saveQuestion(i)">Save</button>
+                </ng-template>
+                <nz-form-item>
+                  <nz-form-label>Question Text</nz-form-label>
+                  <nz-form-control>
+                    <textarea nz-input formControlName="question_text" rows="2"></textarea>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label>Image Url</nz-form-label>
+                  <nz-form-control>
+                    <input nz-input formControlName="image_url">
+                  </nz-form-control>
+                </nz-form-item>
+                <div nz-row [nzGutter]="8">
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Option A</nz-form-label>
+                      <nz-form-control><input nz-input formControlName="option_a"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Option B</nz-form-label>
+                      <nz-form-control><input nz-input formControlName="option_b"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Option C</nz-form-label>
+                      <nz-form-control><input nz-input formControlName="option_c"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Option D</nz-form-label>
+                      <nz-form-control><input nz-input formControlName="option_d"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <div nz-row [nzGutter]="8">
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Audio Start (ms)</nz-form-label>
+                      <nz-form-control><input type="number" nz-input formControlName="audio_start_ms"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Audio End (ms)</nz-form-label>
+                      <nz-form-control><input type="number" nz-input formControlName="audio_end_ms"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                  <div nz-col [nzSpan]="12">
+                    <nz-form-item>
+                      <nz-form-label>Sub Order</nz-form-label>
+                      <nz-form-control><input type="number" nz-input formControlName="sub_order"></nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                <div nz-row [nzGutter]="8">
+                  <div nz-col [nzSpan]="8">
+                    <nz-form-item>
+                      <nz-form-label>Correct Answer</nz-form-label>
+                      <nz-form-control>
+                        <nz-select formControlName="correct_answer">
+                            <nz-option nzValue="A" nzLabel="A"></nz-option>
+                            <nz-option nzValue="B" nzLabel="B"></nz-option>
+                            <nz-option nzValue="C" nzLabel="C"></nz-option>
+                            <nz-option nzValue="D" nzLabel="D"></nz-option>
+                          </nz-select>
+                      </nz-form-control>
+                    </nz-form-item>
+                  </div>
+                </div>
+                
+                <nz-form-item>
+                  <nz-form-label>Explanation</nz-form-label>
+                  <nz-form-control>
+                    <textarea nz-input formControlName="explanation" rows="2"></textarea>
+                  </nz-form-control>
+                </nz-form-item>
+              </nz-card>
+
+              <!-- GROUP Question Type Form -->
+              <ng-container *ngSwitchCase="'GROUP'">
+                <nz-card [nzTitle]="'Question Group ' + (questionControl.get('order_index')?.value)" nzType="inner" class="group-question-card" [nzExtra]="extraSaveTpl">
+                  <ng-template #extraSaveTpl>
+                    <button type="button" nz-button nzType="primary" nzSize="small" (click)="saveQuestion(i)">Save Group</button>
+                  </ng-template>
+                  <nz-form-item>
+                    <nz-form-label>Passage Text</nz-form-label>
+                    <nz-form-control>
+                      <textarea nz-input formControlName="passage_text" rows="4"></textarea>
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label>Image Url</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="image_url">
+                    </nz-form-control>
+                  </nz-form-item>
+                  <nz-form-item>
+                    <nz-form-label>Audio Start Ms</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="audio_start_ms" type="number">
+                    </nz-form-control>
+                  </nz-form-item>
+                   <nz-form-item>
+                    <nz-form-label>Audio End Ms</nz-form-label>
+                    <nz-form-control>
+                      <input nz-input formControlName="audio_end_ms" type="number">
+                    </nz-form-control>
+                  </nz-form-item>
+                  <div formArrayName="sub_questions">
+                    <nz-list nzBordered>
+                      <nz-list-item *ngFor="let subCtrl of getSubQuestions(i).controls; let j = index" [formGroupName]="j">
+                         <div nz-row [nzGutter]="8">
+                          <h4>Sub-question {{subCtrl.get('display_number')?.value}}</h4>
+                            <div nz-col nzSpan="24">
+                               <nz-form-item>
+                                  <nz-form-label>Question Text</nz-form-label>
+                                  <nz-form-control><textarea nz-input formControlName="question_text" rows="2"></textarea></nz-form-control>
+                               </nz-form-item>
+                            </div>
+                            <div nz-col [nzSm]="12" [nzXs]="24"><nz-form-item><nz-form-label>Option A</nz-form-label><nz-form-control><input nz-input formControlName="option_a"></nz-form-control></nz-form-item></div>
+                            <div nz-col [nzSm]="12" [nzXs]="24"><nz-form-item><nz-form-label>Option B</nz-form-label><nz-form-control><input nz-input formControlName="option_b"></nz-form-control></nz-form-item></div>
+                            <div nz-col [nzSm]="12" [nzXs]="24"><nz-form-item><nz-form-label>Option C</nz-form-label><nz-form-control><input nz-input formControlName="option_c"></nz-form-control></nz-form-item></div>
+                            <div nz-col [nzSm]="12" [nzXs]="24"><nz-form-item><nz-form-label>Option D</nz-form-label><nz-form-control><input nz-input formControlName="option_d"></nz-form-control></nz-form-item></div>
+                            <div nz-col [nzSpan]="12">
+                              <nz-form-item>
+                                <nz-form-label>Correct Answer</nz-form-label>
+                                <nz-form-control>
+                                  <nz-select formControlName="correct_answer">
+                                    <nz-option nzValue="A" nzLabel="A"></nz-option>
+                                    <nz-option nzValue="B" nzLabel="B"></nz-option>
+                                    <nz-option nzValue="C" nzLabel="C"></nz-option>
+                                    <nz-option nzValue="D" nzLabel="D"></nz-option>
+                                  </nz-select>
+                                </nz-form-control>
+                              </nz-form-item>
+                            </div>
+                            <div nz-col [nzSpan]="12">
+                               <nz-form-item>
+                                <nz-form-label>Sub-order</nz-form-label>
+                                <nz-form-control><input type="number" nz-input formControlName="sub_order"></nz-form-control>
+                              </nz-form-item>
+                            </div>
+                            <div nz-col nzSpan="24">
+                              <nz-form-item>
+                                <nz-form-label>Explanation</nz-form-label>
+                                <nz-form-control><textarea nz-input formControlName="explanation" rows="2"></textarea></nz-form-control>
+                              </nz-form-item>
+                            </div>
+                         </div>
+                      </nz-list-item>
+                    </nz-list>
+                  </div>
+                </nz-card>
+              </ng-container>
+
+            </ng-container>
+          </div>
+        </div>
+        <div *ngIf="!isLoadingQuestions && questions.controls.length === 0" class="no-questions">
+          No questions found for this part.
+        </div>
+      </nz-spin>
+    </nz-card>
+  </ng-container>
+
+  <div style="text-align:right;margin-top:16px">
+    <button type="button" nz-button [nzType]="'default'" (click)="modalRef.close(false)">Huỷ</button>
+    <button type="submit" nz-button [nzType]="'primary'">{{ isEdit ? 'Cập nhật' : 'Tạo mới' }}</button>
+  </div>
+</form>

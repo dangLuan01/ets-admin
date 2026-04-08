@@ -1,0 +1,50 @@
+<button nz-button nzType="primary" (click)="showCreateModal()">
+  <span nz-icon nzType="plus"></span>
+  Thêm mới
+</button>
+<nz-divider></nz-divider>
+<nz-table
+  #basicTable
+  [nzData]="partMasters"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzPageIndex]="page"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="onPageIndexChange($event)"
+>
+  <thead>
+    <tr>
+      <th>Skill</th>
+      <th>Part Number</th>
+      <th>Name</th>
+      <th>Status</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let data of basicTable.data">
+      <td>{{ data.skill_id }}</td>
+      <td>{{ data.part_number }}</td>
+      <td>{{ data.name }}</td>
+      <td>
+        <nz-tag [nzColor]="data.status === 1 ? 'green' : 'red'">
+          {{ data.status === 1 ? 'Hoạt động' : 'Không hoạt động' }}
+        </nz-tag>
+      </td>
+      <td>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="showEditModal(data)"
+        >
+          <span nz-icon nzType="edit"></span>
+        </button>
+        <button nz-button nzType="primary" nzDanger nzShape="circle">
+          <span nz-icon nzType="delete"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>

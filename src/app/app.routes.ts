@@ -1,9 +1,16 @@
 import { Routes } from '@angular/router';
+import { authGuard } from './core/guards/auth.guard';
+import { MainComponent } from './modules/main/main.component';
 
 export const routes: Routes = [
-  { path: '', pathMatch: 'full', redirectTo: '/welcome' },
   {
-    path: 'welcome',
-    loadChildren: () => import('./pages/welcome/welcome.routes').then((m) => m.WELCOME_ROUTES),
+    path: 'login',
+    loadComponent: () => import('./modules/auth/pages/login/login.component').then(c => c.LoginComponent)
+  },
+  {
+    path: '',
+    component: MainComponent,
+    canActivate: [authGuard],
+    loadChildren: () => import('./modules/main/main.routes').then(m => m.MAIN_ROUTES)
   },
 ];

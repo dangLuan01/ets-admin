@@ -1,0 +1,108 @@
+<div class="question-add-container">
+  <!-- Common selection form -->
+  <form [formGroup]="selectForm" class="select-form">
+    <nz-row [nzGutter]="16">
+      <nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>Exam</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="exam_id" nzPlaceHolder="Chọn Exam" (ngModelChange)="onExamChange($event)">
+              <nz-option *ngFor="let exam of exams" [nzValue]="exam.id" [nzLabel]="exam.title"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>Skill</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="skill_id" nzPlaceHolder="Chọn Skill" (ngModelChange)="onSkillChange($event)">
+              <nz-option *ngFor="let skill of filteredSkills" [nzValue]="skill.id" [nzLabel]="skill.name"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzSpan]="8">
+        <nz-form-item>
+          <nz-form-label>Part</nz-form-label>
+          <nz-form-control>
+            <nz-select formControlName="part_id" nzPlaceHolder="Chọn Part">
+              <nz-option *ngFor="let part of filteredParts" [nzValue]="part.id" [nzLabel]="part.name + ' - ' + part.part_number"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </nz-row>
+  </form>
+
+  <!-- This whole section is shown only when the selectForm is valid -->
+  <div *ngIf="selectForm.valid">
+    <nz-radio-group [(ngModel)]="questionType" style="margin-bottom: 16px;">
+      <label nz-radio-button nzValue="single">Thêm câu hỏi đơn</label>
+      <label nz-radio-button nzValue="group">Thêm nhóm câu hỏi</label>
+      <label nz-radio-button nzValue="part-direction">Thêm Part Direction</label>
+    </nz-radio-group>
+
+    <!-- Single Question Form -->
+    <div *ngIf="questionType === 'single'">
+      <app-question-form
+        [examId]="selectForm.value.exam_id"
+        [partId]="selectForm.value.part_id"
+        [partNumber]="getPartNumber(selectForm.value.part_id)"
+        (saved)="onQuestionSaved()"
+      ></app-question-form>
+    </div>
+
+    <!-- Group Question Form -->
+    <div *ngIf="questionType === 'group'">
+      <form nz-form [formGroup]="groupForm" (ngSubmit)="submitGroup()">
+        <nz-row [nzGutter]="16">
+          <nz-col [nzSpan]="12">
+            <nz-form-item>
+              <nz-form-label>Ảnh nhóm</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="image_url" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>Audio Start (ms)</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="audio_start_ms" type="number" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+          <nz-col [nzSpan]="6">
+            <nz-form-item>
+              <nz-form-label>Audio End (ms)</nz-form-label>
+              <nz-form-control>
+                <input nz-input formControlName="audio_end_ms" type="number" />
+              </nz-form-control>
+            </nz-form-item>
+          </nz-col>
+        </nz-row>
+        <h3>Danh sách câu hỏi con</h3>
+        <div formArrayName="sub_questions">
+          <div *ngFor="let subQ of subQuestions.controls; let i = index" [formGroupName]="i">
+            <app-sub-question-form (remove)="removeSubQuestion(i)"></app-sub-question-form>
+            <nz-divider *ngIf="i < subQuestions.controls.length - 1"></nz-divider>
+          </div>
+        </div>
+        <button nz-button nzType="dashed" type="button" (click)="addSubQuestion()">+ Thêm câu hỏi con</button>
+        <div style="text-align:right;margin-top:16px">
+          <button nz-button nzType="primary" htmlType="submit">Lưu nhóm câu hỏi</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- Part Direction Form -->
+    <div *ngIf="questionType === 'part-direction'">
+      <app-part-direction-form
+        [examId]="selectForm.value.exam_id"
+        [partId]="selectForm.value.part_id"
+        (saved)="onQuestionSaved()"
+      ></app-part-direction-form>
+    </div>
+  </div>
+</div>
