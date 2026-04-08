@@ -39,4 +39,4 @@ EXPOSE 4200
 # Khởi chạy server
 # -s: Chế độ single-page app (quan trọng cho Angular routing)
 # -l: Lắng nghe trên port 4200
-CMD ["serve", "-s", "-l", "4200"]
+CMD ["serve", "-s", "browser", "-l", "4200"]
