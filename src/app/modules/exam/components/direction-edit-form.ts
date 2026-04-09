@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, inject } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -8,9 +8,12 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
-
 import { ExamService } from '../services/exam.service';
 import { Direction, PartDirectionUpdatePayload } from '../models/exam.model';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, 
+  Code, Heading, List, Indent, BlockQuote, Link, Table, TableToolbar, Undo
+} from 'ckeditor5';
 
 @Component({
   selector: 'app-direction-edit-form',
@@ -23,11 +26,53 @@ import { Direction, PartDirectionUpdatePayload } from '../models/exam.model';
     NzButtonModule,
     NzGridModule,
     NzInputNumberModule,
+    CKEditorModule
   ],
   templateUrl: './direction-edit-form.html',
   styleUrls: ['./direction-edit-form.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class DirectionEditFormComponent implements OnInit {
+  public Editor = ClassicEditor;
+
+  public config = {
+    licenseKey: 'GPL',
+
+    plugins: [
+      Essentials,
+      Paragraph,
+      Bold,
+      Italic,
+      Underline,
+      Strikethrough,
+      Code,
+      Heading,
+      List,
+      Indent,
+      BlockQuote,
+      Link,
+      Table,
+      TableToolbar,
+      Undo,
+    ],
+
+    toolbar: [
+      'undo', 'redo',
+      '|',
+      'heading',
+      '|',
+      'bold', 'italic', 'underline', 'strikethrough', 'code',
+      '|',
+      'link', 'uploadImage',
+      '|',
+      'bulletedList', 'numberedList',
+      'outdent', 'indent',
+      '|',
+      'blockQuote',
+      '|',
+      'insertTable',
+    ],
+  };
   private fb = inject(FormBuilder);
   private modalData: { direction: Direction, examId: number, partId: number } = inject(NZ_MODAL_DATA);
   public modalRef = inject(NzModalRef);

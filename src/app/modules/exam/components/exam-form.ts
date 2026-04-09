@@ -1,6 +1,6 @@
 import { NzDividerModule } from 'ng-zorro-antd/divider';
 import { NzTreeSelectModule } from 'ng-zorro-antd/tree-select';
-import { Component, OnInit, inject, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, inject, ChangeDetectorRef, ViewEncapsulation } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators, FormArray } from '@angular/forms';
 import { NzFormModule } from 'ng-zorro-antd/form';
@@ -15,33 +15,70 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { ExamService } from '../services/exam.service';
 import { forkJoin } from 'rxjs';
-import { Exam, ExamStructure, QuestionItem, QuestionData, GroupData, Direction, FilterStructureNode } from '../models/exam.model';
+import { Exam, ExamStructure, QuestionData, GroupData, Direction, FilterStructureNode } from '../models/exam.model';
 import { CertificateService } from '../../certificate/services/certificate.service';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { DirectionEditFormComponent } from './direction-edit-form';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, 
+  Code, Heading, List, Indent, BlockQuote, Link, Table, TableToolbar, Undo, Font, 
+  FontBackgroundColor, FontColor, FontSize, Superscript, Subscript
+} from 'ckeditor5';
 
 @Component({
   selector: 'app-exam-form',
   standalone: true,
-  imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    NzFormModule,
-    NzInputModule,
-    NzIconModule,
-    NzSelectModule,
-    NzButtonModule,
-    NzCollapseModule,
-    NzListModule,
-    NzCardModule,
-    NzSpinModule,
-    NzDividerModule,
-    NzTreeSelectModule,
+  imports: [ CommonModule, ReactiveFormsModule, NzFormModule, NzInputModule, NzIconModule, 
+    NzSelectModule, NzButtonModule, NzCollapseModule, NzListModule, NzCardModule, NzSpinModule, 
+    NzDividerModule, NzTreeSelectModule, CKEditorModule
   ],
   templateUrl: './exam-form.html',
-  styleUrls: ['./exam-form.less']
+  styleUrls: ['./exam-form.less'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ExamFormComponent implements OnInit {
+  public Editor = ClassicEditor;
+
+  public config = {
+    licenseKey: 'GPL',
+
+    plugins: [ Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, Code, Heading, 
+      List, Indent, BlockQuote, Link, Table, TableToolbar, Undo, Font, FontColor, FontBackgroundColor, 
+      FontSize, Superscript, Subscript
+    ],
+
+    toolbar: [
+      'undo', 'redo',
+      '|',
+      'heading',
+      '|',
+      'fontColor',
+      'fontBackgroundColor',
+      'fontSize',
+      '|',
+      'superscript',
+      'subscript',
+      '|',
+      'bold', 'italic', 'underline', 'strikethrough', 'code',
+      '|',
+      'link',
+      '|',
+      'bulletedList', 'numberedList',
+      'outdent', 'indent',
+      '|',
+      'blockQuote',
+      '|',
+      'insertTable',
+    ],
+    fontColor: {
+        colors: [
+        { color: '#000000', label: 'Black' },
+        { color: '#FF0000', label: 'Red' },
+        { color: '#00FF00', label: 'Green' },
+        { color: '#0000FF', label: 'Blue' }
+      ]
+    }
+  };
   private fb = inject(FormBuilder);
   private modalData?: { model: Partial<Exam>, isEdit: boolean } = inject(NZ_MODAL_DATA, { optional: true });
   public modalRef = inject(NzModalRef);
@@ -211,6 +248,7 @@ export class ExamFormComponent implements OnInit {
         display_number: [sq.display_number],
         correct_answer: [sq.correct_answer],
         explanation: [sq.explanation],
+        transcript: [sq.transcript]
     })) || [];
 
     return this.fb.group({
@@ -221,6 +259,7 @@ export class ExamFormComponent implements OnInit {
       image_url: [data?.image_url],
       audio_start_ms: Number(data?.audio_start_ms),
       audio_end_ms: Number(data?.audio_end_ms),
+      explanation: [data?.explanation],
       transcript: [data?.transcript],
       sub_questions: this.fb.array(subQuestions)
     });
