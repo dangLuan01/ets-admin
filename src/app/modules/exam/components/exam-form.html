@@ -69,9 +69,7 @@
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">Description</nz-form-label>
         <nz-form-control [nzSm]="18" [nzXs]="24">
-          <nz-input-group nzPrefixIcon="info-circle">
-            <input nz-input formControlName="description" id="description" />
-          </nz-input-group>
+          <ckeditor [editor]="Editor" formControlName="description" [config]="config"></ckeditor>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -132,7 +130,7 @@
               <span nz-icon nzType="edit"></span>Edit Direction
             </button>
           </h4>
-          <p>{{ currentPartDirection.text }}</p>
+          <div [innerHTML]="currentPartDirection.text"></div>
           <p><strong>Audio:</strong> {{ currentPartDirection.audio_start_ms }}ms - {{ currentPartDirection.audio_end_ms }}ms</p>
           <div *ngIf="currentPartDirection.example">
             <h5>Example</h5>
@@ -229,7 +227,13 @@
                 <nz-form-item>
                   <nz-form-label>Explanation</nz-form-label>
                   <nz-form-control>
-                    <textarea nz-input formControlName="explanation" rows="2"></textarea>
+                    <ckeditor [editor]="Editor" formControlName="explanation" [config]="config"></ckeditor>
+                  </nz-form-control>
+                </nz-form-item>
+                <nz-form-item>
+                  <nz-form-label>Transcript</nz-form-label>
+                  <nz-form-control>
+                    <ckeditor [editor]="Editor" formControlName="transcript" [config]="config"></ckeditor>
                   </nz-form-control>
                 </nz-form-item>
               </nz-card>
@@ -243,7 +247,7 @@
                   <nz-form-item>
                     <nz-form-label>Passage Text</nz-form-label>
                     <nz-form-control>
-                      <textarea nz-input formControlName="passage_text" rows="4"></textarea>
+                      <ckeditor [config]="config" [editor]="Editor" formControlName="passage_text"></ckeditor>
                     </nz-form-control>
                   </nz-form-item>
                   <nz-form-item>
@@ -262,6 +266,12 @@
                     <nz-form-label>Audio End Ms</nz-form-label>
                     <nz-form-control>
                       <input nz-input formControlName="audio_end_ms" type="number">
+                    </nz-form-control>
+                  </nz-form-item>
+                   <nz-form-item>
+                    <nz-form-label>Transcript</nz-form-label>
+                    <nz-form-control>
+                      <ckeditor [config]="config" [editor]="Editor" formControlName="transcript"></ckeditor>
                     </nz-form-control>
                   </nz-form-item>
                   <div formArrayName="sub_questions">
@@ -301,7 +311,19 @@
                             <div nz-col nzSpan="24">
                               <nz-form-item>
                                 <nz-form-label>Explanation</nz-form-label>
-                                <nz-form-control><textarea nz-input formControlName="explanation" rows="2"></textarea></nz-form-control>
+                                <nz-form-control>
+                                  <textarea nz-input formControlName="explanation" rows="2"></textarea>
+                                  <!-- <ckeditor [editor]="Editor" [config]="config" formControlName="explanation"></ckeditor> -->
+                                </nz-form-control>
+                              </nz-form-item>
+                            </div>
+                            <div nz-col nzSpan="24">
+                              <nz-form-item>
+                                <nz-form-label>Transcript</nz-form-label>
+                                <nz-form-control>
+                                  <textarea nz-input formControlName="transcript" rows="2"></textarea>
+                                  <!-- <ckeditor [editor]="Editor" [config]="config" formControlName="transcript"></ckeditor> -->
+                                </nz-form-control>
                               </nz-form-item>
                             </div>
                          </div>

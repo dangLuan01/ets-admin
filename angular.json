@@ -35,7 +35,10 @@
                 "output": "/assets/"
               }
             ],
-            "styles": ["src/styles.less"],
+            "styles": [
+              "src/styles.less",
+              "ckeditor5/ckeditor5.css"
+            ],
             "outputMode": "static",
             "security": {
               "allowedHosts": []
