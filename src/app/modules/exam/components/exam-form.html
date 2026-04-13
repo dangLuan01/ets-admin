@@ -65,6 +65,45 @@
         </nz-form-control>
       </nz-form-item>
     </nz-col>
+
+    <!-- Target Exam Selection -->
+    <ng-container formGroupName="target">
+      <nz-col [nzSpan]="24">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="target_exam_id">Target Exam</nz-form-label>
+          <nz-form-control [nzSm]="18" [nzXs]="24">
+            <nz-select
+              formControlName="target_exam_id"
+              id="target_exam_id"
+              nzPlaceHolder="Chọn target exam"
+              (ngModelChange)="onTargetExamChange($event)"
+              nzAllowClear
+            >
+              <nz-option *ngFor="let exam of allExams" [nzValue]="exam.id" [nzLabel]="exam.title"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+      <nz-col [nzSpan]="24" *ngIf="validateForm.get('target.target_exam_id')?.value">
+        <nz-form-item>
+          <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="target_part_id">Target Parts</nz-form-label>
+          <nz-form-control [nzSm]="18" [nzXs]="24">
+            <nz-spin [nzSpinning]="isLoadingTargetStructure">
+              <nz-tree-select
+                formControlName="target_part_id"
+                id="target_part_id"
+                [nzNodes]="targetPartNodes"
+                nzPlaceHolder="Chọn part"
+                nzCheckable="true"
+                nzShowSearch
+              >
+              </nz-tree-select>
+            </nz-spin>
+          </nz-form-control>
+        </nz-form-item>
+      </nz-col>
+    </ng-container>
+
     <nz-col [nzSpan]="24">
       <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="description">Description</nz-form-label>
