@@ -549,7 +549,12 @@ Request:
     "year": 0,
     "total_question": 0,
     "total_time": 0,
-    "status": 0
+    "status": 0,
+    "target": {
+        "target_exam_id": 0,
+        "target_part_id": [0,0]
+    }
+
 }
 ```
 Response:
@@ -578,6 +583,7 @@ Validation Rules:
 - thumbnail: optional
 - category: optional
 - status: optional
+- target: optional
 
 ---
 

@@ -1,3 +1,8 @@
+export interface ExamTarget {
+  target_exam_id: number;
+  target_part_id: number[];
+}
+
 // Exam model based on API docs
 export interface Exam {
   id: number;
@@ -12,6 +17,7 @@ export interface Exam {
   audio_full_url?: string | null;
   created_at?: string;
   status: number;
+  target?: ExamTarget | null;
 }
 
 // API response for get-all

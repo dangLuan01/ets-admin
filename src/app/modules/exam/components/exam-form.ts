@@ -99,6 +99,16 @@ export class ExamFormComponent implements OnInit {
   currentPartId: number | null = null;
   currentPartDirection: Direction | null = null;
 
+  // Properties for Target Exam functionality
+  allExams: Exam[] = [];
+  targetExamPage = 1;
+  targetExamLimit = 10;
+  isLoadingTargetExams = false;
+  hasMoreTargetExams = true;
+  targetExamStructure: ExamStructure | null = null;
+  isLoadingTargetStructure = false;
+  targetPartNodes: any[] = [];
+
   get questions() : FormArray {
     return this.validateForm.get('questions') as FormArray;
   }
@@ -117,7 +127,11 @@ export class ExamFormComponent implements OnInit {
       thumbnail: [null],
       audio_full_url: [null],
       status: [1, [Validators.required]],
-      questions: this.fb.array([])
+      questions: this.fb.array([]),
+      target: this.fb.group({
+        target_exam_id: [null],
+        target_part_id: [[]]
+      })
     });
 
     this.certificateService.getAll(1, 50).subscribe(res => {
@@ -136,13 +150,23 @@ export class ExamFormComponent implements OnInit {
         this.categoryNodes = this.mapTreeNodes(categories.data);
         
         const examData = details.data;
+        // WORKAROUND: Convert IDs to strings for nz-tree-select to correctly display checked values.
         if (examData.category_ids) {
-          // WORKAROUND: Convert IDs to strings for nz-tree-select to correctly display checked values.
           (examData as any).category_ids = examData.category_ids.map(id => `${id}`);
+        }
+        // Convert target_part_id to strings for nz-tree-select
+        if (examData.target && examData.target.target_part_id) {
+          (examData.target as any).target_part_id = examData.target.target_part_id.map(id => `${id}`);
         }
 
         this.validateForm.patchValue(examData);
         this.examStructure = structure.data;
+
+        // If a target is set, load its structure
+        if (examData.target && examData.target.target_exam_id) {
+          this.onTargetExamChange(examData.target.target_exam_id, true);
+        }
+
         this.isLoadingStructure = false;
         this.cdr.detectChanges();
       });
@@ -153,6 +177,73 @@ export class ExamFormComponent implements OnInit {
         this.categoryNodes = this.mapTreeNodes(res.data);
       });
     }
+
+    // Load the first page of target exams
+    this.loadMoreTargetExams();
+  }
+
+  loadMoreTargetExams(): void {
+    if (this.isLoadingTargetExams || !this.hasMoreTargetExams) {
+      return;
+    }
+
+    this.isLoadingTargetExams = true;
+    this.examService.getAll(this.targetExamPage, this.targetExamLimit).subscribe({
+      next: res => {
+        let newExams = res.data.response;
+        if (this.isEdit && this.modalData?.model?.id) {
+          const modelId = this.modalData.model.id;
+          newExams = newExams.filter(exam => exam.id !== modelId);
+        }
+        
+        this.allExams = [...this.allExams, ...newExams];
+        this.hasMoreTargetExams = res.data.pagination.has_next;
+        this.targetExamPage++;
+        this.isLoadingTargetExams = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.message.error('Failed to load list of exams. Please try again.');
+        this.isLoadingTargetExams = false;
+      }
+    });
+  }
+
+  onTargetExamChange(examId: number | null, preserveValue = false): void {
+    const targetPartControl = this.validateForm.get('target.target_part_id');
+    if (!examId) {
+      this.targetExamStructure = null;
+      this.targetPartNodes = [];
+      if (!preserveValue) {
+        targetPartControl?.setValue([]);
+      }
+      return;
+    }
+
+    this.isLoadingTargetStructure = true;
+    this.examService.getExamStructure(examId).subscribe(res => {
+      this.targetExamStructure = res.data;
+      this.targetPartNodes = this.mapTargetPartNodes(res.data.blueprint);
+      if (!preserveValue) {
+        targetPartControl?.setValue([]); // Reset selection
+      }
+      this.isLoadingTargetStructure = false;
+      this.cdr.detectChanges();
+    });
+  }
+
+  private mapTargetPartNodes(blueprint: any[]): any[] {
+    return blueprint.map(skill => ({
+      title: skill.skill_name,
+      key: `skill-${skill.skill_id}`,
+      isLeaf: false,
+      disableCheckbox: true, // Prevent parent selection
+      children: skill.parts.map((part: any) => ({
+        title: `${part.part_name} (Part ${part.part_number})`,
+        key: `${part.part_id}`, // Ensure key is a string
+        isLeaf: true
+      }))
+    }));
   }
 
   private mapTreeNodes(nodes: FilterStructureNode[]): FilterStructureNode[] {
@@ -170,6 +261,7 @@ export class ExamFormComponent implements OnInit {
       return newNode;
     });
   }
+
 
   loadQuestionsForPart(partId: number): void {
     if (!this.modalData?.model?.id) return;
@@ -309,6 +401,16 @@ export class ExamFormComponent implements OnInit {
     // WORKAROUND: Convert string IDs from tree-select back to numbers for the API.
     if (formValue.category_ids && Array.isArray(formValue.category_ids)) {
       formValue.category_ids = formValue.category_ids.map((id: string) => parseInt(id, 10));
+    }
+
+    // Handle target object: set to null if no target exam is selected
+    if (formValue.target && !formValue.target.target_exam_id) {
+      formValue.target = null;
+    } else if (formValue.target && Array.isArray(formValue.target.target_part_id)) {
+      // Filter out non-numeric keys (like 'skill-x') and convert valid ones to numbers.
+      formValue.target.target_part_id = formValue.target.target_part_id
+        .map((id: string) => parseInt(id, 10))
+        .filter((id: number) => !isNaN(id));
     }
 
     if (this.isEdit && this.modalData?.model?.id) {
