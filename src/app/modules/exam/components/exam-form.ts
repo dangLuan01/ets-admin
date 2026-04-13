@@ -101,6 +101,10 @@ export class ExamFormComponent implements OnInit {
 
   // Properties for Target Exam functionality
   allExams: Exam[] = [];
+  targetExamPage = 1;
+  targetExamLimit = 10;
+  isLoadingTargetExams = false;
+  hasMoreTargetExams = true;
   targetExamStructure: ExamStructure | null = null;
   isLoadingTargetStructure = false;
   targetPartNodes: any[] = [];
@@ -174,13 +178,33 @@ export class ExamFormComponent implements OnInit {
       });
     }
 
-    // Fetch all exams for the target exam dropdown
-    this.examService.getAll(1, 10).subscribe(res => {
-      // Exclude current exam from the list if editing
-      if (this.isEdit && this.modalData?.model?.id) {
-        this.allExams = res.data.response.filter(exam => exam.id !== this.modalData?.model?.id);
-      } else {
-        this.allExams = res.data.response;
+    // Load the first page of target exams
+    this.loadMoreTargetExams();
+  }
+
+  loadMoreTargetExams(): void {
+    if (this.isLoadingTargetExams || !this.hasMoreTargetExams) {
+      return;
+    }
+
+    this.isLoadingTargetExams = true;
+    this.examService.getAll(this.targetExamPage, this.targetExamLimit).subscribe({
+      next: res => {
+        let newExams = res.data.response;
+        if (this.isEdit && this.modalData?.model?.id) {
+          const modelId = this.modalData.model.id;
+          newExams = newExams.filter(exam => exam.id !== modelId);
+        }
+        
+        this.allExams = [...this.allExams, ...newExams];
+        this.hasMoreTargetExams = res.data.pagination.has_next;
+        this.targetExamPage++;
+        this.isLoadingTargetExams = false;
+        this.cdr.detectChanges();
+      },
+      error: () => {
+        this.message.error('Failed to load list of exams. Please try again.');
+        this.isLoadingTargetExams = false;
       }
     });
   }

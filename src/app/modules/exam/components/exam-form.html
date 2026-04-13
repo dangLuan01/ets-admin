@@ -78,7 +78,13 @@
               nzPlaceHolder="Chọn target exam"
               (ngModelChange)="onTargetExamChange($event)"
               nzAllowClear
+              [nzLoading]="isLoadingTargetExams"
+              (nzScrollToBottom)="loadMoreTargetExams()"
+              
             >
+              <!-- <ng-template #noOtherExamsTpl>
+                <nz-empty *ngIf="!isLoadingTargetExams" nzNotFoundContent="No other exams available"></nz-empty>
+              </ng-template> -->
               <nz-option *ngFor="let exam of allExams" [nzValue]="exam.id" [nzLabel]="exam.title"></nz-option>
             </nz-select>
           </nz-form-control>
