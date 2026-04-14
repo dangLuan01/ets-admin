@@ -36,4 +36,9 @@ export const MAIN_ROUTES: Routes = [
     loadChildren: () =>
       import('../question/question.routes').then((m) => m.QUESTION_ROUTES),
   },
+  {
+    path: 'menu',
+    loadChildren: () =>
+      import('../menu/menu.routes').then((m) => m.MENU_ROUTES),
+  },
 ];

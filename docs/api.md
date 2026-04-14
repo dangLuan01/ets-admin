@@ -1174,6 +1174,160 @@ Validation Rules:
 
 ---
 
+## Entity: Menu
+
+---
+
+Get All
+GET /api/v1/menu/get-all
+
+Query Parameter:
+limit:10,
+page:1
+
+Response:
+```json
+{
+    "data": {
+        "pagination": {
+            "page": 1,
+            "limit": 10,
+            "total_records": 10,
+            "total_pages": 1,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 1,
+                "parent_id": null,
+                "name": "string",
+                "slug": null,
+                "type": "string",
+                "status": 1,
+                "priority": 1
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Structure Parent
+GET /api/v1/menu/structure
+
+Response:
+```json
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "string",
+            "type": "string"
+            "children": [
+                {
+                    "id": 2,
+                    "name": "string",
+                    "type": "string"
+                }
+            ]
+        }
+    ],
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Menu Detail (Edit)
+GET /api/v1/menu/edit/{id}
+
+Path Parameter:
+- id (number): Category ID
+
+Response:
+```json
+{
+    "data": {
+        "id": 2,
+        "parent_id": 1,
+        "name": "string",
+        "slug": null,
+        "type": "string",
+        "status": 1,
+        "priority": 1
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Create Menu
+POST /api/v1/menu/create
+
+Request:
+```json
+{
+    "parent_id": null,
+    "name": "string",
+    "slug":"string",
+    "type": "string",
+    "status": 1,
+    "priority":9999
+}
+```
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+Update Menu
+PUT /api/v1/menu/update
+
+Request:
+```json
+{
+    "id": 0,
+    "parent_id": null,
+    "name": "string",
+    "slug": "string",
+    "type": "string",
+    "status": 1,
+    "priority":9999
+}
+```
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- parent_id: optional,
+- name: required
+- slug: optional,
+- type: required,
+- priority: required
+- status: required
+
+---
+
 ## Entity: Authenticator
 
 ---

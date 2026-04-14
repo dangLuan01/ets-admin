@@ -1,0 +1,45 @@
+<section>
+  <h2>{{ isEdit() ? 'Edit' : 'Create' }} Category</h2>
+  <form (ngSubmit)="save()">
+    <div>
+      <label>Name</label>
+      <input [(ngModel)]="menu().name" name="name" required />
+    </div>
+    <div>
+      <label>Parent</label>
+      <select [(ngModel)]="menu().parent_id" name="parent_id">
+        <option [ngValue]="null">-- None --</option>
+        <ng-container *ngFor="let parent of structure()">
+          <option [ngValue]="parent.id">{{ parent.name }}</option>
+          <ng-container *ngFor="let child of parent.children">
+            <option [ngValue]="child.id">&nbsp;&nbsp;{{ child.name }}</option>
+          </ng-container>
+        </ng-container>
+      </select>
+    </div>
+    <div>
+      <label>Type</label>
+      <select [(ngModel)]="menu().type" name="type" required>
+        <option value="header">Header</option>
+        <option value="footer">Footer</option>
+      </select>
+      <input [(ngModel)]="menu().type" name="type" required />
+    </div>
+    <div>
+      <label>Status</label>
+      <select [(ngModel)]="menu().status" name="status">
+        <option [ngValue]="1">Active</option>
+        <option [ngValue]="0">Inactive</option>
+      </select>
+    </div>
+    <div>
+      <label>Priority</label>
+      <input type="number" [(ngModel)]="menu().priority" name="priority" />
+    </div>
+    <div>
+      <label>Slug</label>
+      <input [(ngModel)]="menu().slug" name="slug" />
+    </div>
+    <button type="submit" [disabled]="loading()">{{ isEdit() ? 'Update' : 'Create' }}</button>
+  </form>
+</section>
