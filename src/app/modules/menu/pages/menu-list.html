@@ -1,0 +1,58 @@
+<button nz-button nzType="primary" (click)="showCreateModal()">
+  <span nz-icon nzType="plus"></span>
+  Thêm mới
+</button>
+<nz-divider></nz-divider>
+<nz-table
+  #basicTable
+  [nzData]="menus"
+  nzBordered
+  [nzFrontPagination]="false"
+  [nzTotal]="total"
+  [nzPageIndex]="page"
+  [nzPageSize]="limit"
+  (nzPageIndexChange)="onPageIndexChange($event)"
+  [nzLoading]="loading"
+>
+  <thead>
+    <tr>
+      <th>ID</th>
+      <th>Tên</th>
+      <th>Slug</th>
+      <th>Loại</th>
+      <th>Trạng thái</th>
+      <!-- <th>Cha</th> -->
+      <th>Thứ tự</th>
+      <th>Hành động</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let menu of basicTable.data">
+      <td>{{ menu.id }}</td>
+      <td>{{ menu.name }}</td>
+      <td>{{ menu.slug }}</td>
+      <td>
+        <nz-tag [nzColor]="menu.type === 'header' ? 'blue' : 'default'">
+          {{ menu.type === 'header' ? 'Header' : 'Footer' }}
+        </nz-tag>
+      </td>
+      <td>
+        <nz-tag [nzColor]="menu.status === 1 ? 'green' : 'red'">
+          {{ menu.status === 1 ? 'Hoạt động' : 'Không hoạt động' }}
+        </nz-tag>
+      </td>
+      <!-- <td>{{ getParentName(menu.parent_id) }}</td> -->
+      <td>{{ menu.priority }}</td>
+      <td>
+        <button
+          nz-button
+          nzType="primary"
+          nzShape="circle"
+          (click)="showEditModal(menu)"
+        >
+          <span nz-icon nzType="edit"></span>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</nz-table>
