@@ -357,7 +357,8 @@
                               <nz-form-item>
                                 <nz-form-label>Explanation</nz-form-label>
                                 <nz-form-control>
-                                  <textarea nz-input formControlName="explanation" rows="2"></textarea>
+                                  <ckeditor [editor]="Editor" formControlName="explanation" [config]="config"></ckeditor>
+                                  <!-- <textarea nz-input formControlName="explanation" rows="2"></textarea> -->
                                   <!-- <ckeditor [editor]="Editor" [config]="config" formControlName="explanation"></ckeditor> -->
                                 </nz-form-control>
                               </nz-form-item>
