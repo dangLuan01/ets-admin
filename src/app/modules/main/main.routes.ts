@@ -37,6 +37,11 @@ export const MAIN_ROUTES: Routes = [
       import('../question/question.routes').then((m) => m.QUESTION_ROUTES),
   },
   {
+    path: 'tag',
+    loadChildren: () =>
+      import('../tag/tag.routes').then((m) => m.TAG_ROUTES),
+  },
+  {
     path: 'menu',
     loadChildren: () =>
       import('../menu/menu.routes').then((m) => m.MENU_ROUTES),

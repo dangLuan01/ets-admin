@@ -1383,6 +1383,126 @@ Response:
 ```
 
 ---
+
+## Entity: Tag
+
+Fields:
+- id (number): Unique identifier
+- name (string): Tag name
+- slug (string): Tag slug
+- status (number): Status (1 = Active, 0 = Inactive)
+
+---
+
+Get All slug
+GET /tag/get-all
+
+Query Parameters:
+- page (number): Page number
+- limit (number): Number of items per page
+
+Response:
+```json
+{
+    "data": {
+        "pagination": {
+            "page": 10,
+            "limit": 0,
+            "total_records": 0,
+            "total_pages": 0,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 0,
+                "name": "string",
+                "slug": "string",
+                "status": 0
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Tag Detail (Edit)
+GET /tag/edit/{id}
+
+Path Parameter:
+- id (number): Tag ID
+
+Response:
+```json
+{
+  "data": {
+    "id": 1,    
+    "name": "string",
+    "slug": "string",
+    "status": 1
+  },
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+Create Tag
+POST /tag/create
+
+Request:
+```json
+{
+    "name": "string",
+    "slug": "string",
+    "status": 0
+}
+```
+
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+Update Tag
+PUT /tag/update
+
+Request:
+```json
+{
+  "id": 0,  
+  "name": "string",
+  "slug": "string",
+  "status": 0,
+}
+```
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- name: required
+- slug: required, unique
+- status: required
+
+---
 <!-- Notes:
 - All endpoints require authentication
 - Validation errors return HTTP 400

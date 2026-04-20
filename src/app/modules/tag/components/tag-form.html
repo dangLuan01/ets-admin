@@ -1,0 +1,20 @@
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Vui lòng nhập tên!">
+            <input type="text" nz-input formControlName="name" placeholder="Tên" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Vui lòng nhập slug!">
+            <input type="text" nz-input formControlName="slug" placeholder="Slug" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-control nzErrorTip="Vui lòng chọn trạng thái!">
+            <nz-select formControlName="status" nzPlaceHolder="Chọn trạng thái">
+                <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+                <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>
