@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { MenuService } from '../services/menu.service';
 import { Menu } from '../models/menu.model';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
@@ -9,6 +9,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzFormModule } from 'ng-zorro-antd/form';
 import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzSelectModule } from 'ng-zorro-antd/select';
+import { Subject, takeUntil } from 'rxjs';
+import { generateSlug } from '../../../shared/utils/string.utils';
 
 @Component({
   selector: 'ets-menu-form-modal',
@@ -70,7 +72,7 @@ import { NzSelectModule } from 'ng-zorro-antd/select';
     </form>
   `
 })
-export class MenuFormModalComponent {
+export class MenuFormModalComponent implements OnInit, OnDestroy {
   form: FormGroup;
   loading = false;
   menu: Partial<Menu> | null = null;
@@ -79,6 +81,8 @@ export class MenuFormModalComponent {
   private modalRef = inject(NzModalRef<MenuFormModalComponent>);
   private fb = inject(FormBuilder);
   private message = inject(NzMessageService);
+  private destroy$ = new Subject<void>();
+
   constructor() {
     const modalData = inject(NZ_MODAL_DATA, { optional: true }) as any;
     this.menu = modalData?.menu ?? null;
@@ -98,6 +102,22 @@ export class MenuFormModalComponent {
       });
     }
   }
+
+  ngOnInit(): void {
+    this.form.controls['name'].valueChanges.pipe(
+      takeUntil(this.destroy$)
+    ).subscribe(name => {
+      if (this.form.controls['slug'].pristine) {
+        this.form.controls['slug'].setValue(generateSlug(name));
+      }
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.destroy$.next();
+    this.destroy$.complete();
+  }
+
   onSubmit() {
     if (this.form.invalid) return;
     this.loading = true;

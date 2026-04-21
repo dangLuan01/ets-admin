@@ -20,10 +20,7 @@ import { CertificateService } from '../../certificate/services/certificate.servi
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { DirectionEditFormComponent } from './direction-edit-form';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, 
-  Code, Heading, List, Indent, BlockQuote, Link, Table, TableToolbar, Undo, Font, 
-  FontBackgroundColor, FontColor, FontSize, Superscript, Subscript
-} from 'ckeditor5';
+import { CkEditor, CkEditorConfig } from '../../../shared/configs/ckeditor.config';
 
 @Component({
   selector: 'app-exam-form',
@@ -37,48 +34,8 @@ import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Striketh
   encapsulation: ViewEncapsulation.None
 })
 export class ExamFormComponent implements OnInit {
-  public Editor = ClassicEditor;
-
-  public config = {
-    licenseKey: 'GPL',
-
-    plugins: [ Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, Code, Heading, 
-      List, Indent, BlockQuote, Link, Table, TableToolbar, Undo, Font, FontColor, FontBackgroundColor, 
-      FontSize, Superscript, Subscript
-    ],
-
-    toolbar: [
-      'undo', 'redo',
-      '|',
-      'heading',
-      '|',
-      'fontColor',
-      'fontBackgroundColor',
-      'fontSize',
-      '|',
-      'superscript',
-      'subscript',
-      '|',
-      'bold', 'italic', 'underline', 'strikethrough', 'code',
-      '|',
-      'link',
-      '|',
-      'bulletedList', 'numberedList',
-      'outdent', 'indent',
-      '|',
-      'blockQuote',
-      '|',
-      'insertTable',
-    ],
-    fontColor: {
-        colors: [
-        { color: '#000000', label: 'Black' },
-        { color: '#FF0000', label: 'Red' },
-        { color: '#00FF00', label: 'Green' },
-        { color: '#0000FF', label: 'Blue' }
-      ]
-    }
-  };
+  public Editor = CkEditor;
+  public config = CkEditorConfig;
   private fb = inject(FormBuilder);
   private modalData?: { model: Partial<Exam>, isEdit: boolean } = inject(NZ_MODAL_DATA, { optional: true });
   public modalRef = inject(NzModalRef);

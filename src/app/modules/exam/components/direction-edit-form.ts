@@ -11,9 +11,7 @@ import { NZ_MODAL_DATA, NzModalRef } from 'ng-zorro-antd/modal';
 import { ExamService } from '../services/exam.service';
 import { Direction, PartDirectionUpdatePayload } from '../models/exam.model';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
-import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Strikethrough, 
-  Code, Heading, List, Indent, BlockQuote, Link, Table, TableToolbar, Undo
-} from 'ckeditor5';
+import { CkEditor, CkEditorConfig } from '../../../shared/configs/ckeditor.config';
 
 @Component({
   selector: 'app-direction-edit-form',
@@ -33,46 +31,8 @@ import { ClassicEditor, Essentials, Paragraph, Bold, Italic, Underline, Striketh
   encapsulation: ViewEncapsulation.None
 })
 export class DirectionEditFormComponent implements OnInit {
-  public Editor = ClassicEditor;
-
-  public config = {
-    licenseKey: 'GPL',
-
-    plugins: [
-      Essentials,
-      Paragraph,
-      Bold,
-      Italic,
-      Underline,
-      Strikethrough,
-      Code,
-      Heading,
-      List,
-      Indent,
-      BlockQuote,
-      Link,
-      Table,
-      TableToolbar,
-      Undo,
-    ],
-
-    toolbar: [
-      'undo', 'redo',
-      '|',
-      'heading',
-      '|',
-      'bold', 'italic', 'underline', 'strikethrough', 'code',
-      '|',
-      'link', 'uploadImage',
-      '|',
-      'bulletedList', 'numberedList',
-      'outdent', 'indent',
-      '|',
-      'blockQuote',
-      '|',
-      'insertTable',
-    ],
-  };
+  public Editor = CkEditor;
+  public config = CkEditorConfig;
   private fb = inject(FormBuilder);
   private modalData: { direction: Direction, examId: number, partId: number } = inject(NZ_MODAL_DATA);
   public modalRef = inject(NzModalRef);

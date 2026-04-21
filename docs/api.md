@@ -1394,7 +1394,7 @@ Fields:
 
 ---
 
-Get All slug
+Get All Tag
 GET /tag/get-all
 
 Query Parameters:
@@ -1500,6 +1500,149 @@ UI Mapping:
 Validation Rules:
 - name: required
 - slug: required, unique
+- status: required
+
+---
+
+## Entity: Post
+
+Fields:
+- id (number): Unique identifier
+- name (string): Post name
+- slug (string): Post slug
+- content (string): Post content
+- summary (string): Post summary
+- thumbnail_url (string): Post thumbnail url 
+- tags (array<number>): Post tag
+- status (number): Status (1 = Active, 0 = Inactive)
+
+---
+
+Get All Post
+GET /post/get-all
+
+Query Parameters:
+- page (number): Page number
+- limit (number): Number of items per page
+
+Response:
+```json
+{
+    "data": {
+        "pagination": {
+            "page": 0,
+            "limit": 0,
+            "total_records": 0,
+            "total_pages": 0,
+            "has_next": false,
+            "has_prev": false
+        },
+        "response": [
+            {
+                "id": 1,
+                "name": "string",
+                "slug": "string",
+                "content": "string",
+                "summary": "string",
+                "thumbnail_url": "string",
+                "status": 1
+            }
+        ]
+    },
+    "message": "Successfully.",
+    "status": "SUCCESS"
+}
+```
+---
+
+Get Post Detail (Edit)
+GET /post/edit/{id}
+
+Path Parameter:
+- id (number): Post ID
+
+Response:
+```json
+{
+  "data": {
+    "id": 1,
+        "name": "string",
+        "slug": "string",
+        "content": "string",
+        "summary": "string",
+        "thumbnail_url": "string",
+        "status": 1,
+        "tags": [0]
+  },
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+Create Post
+POST /post/create
+
+Request:
+```json
+{
+    "name": "string",
+    "slug": "string",
+    "content":"string",
+    "summary":"string",
+    "thumbnail_url":"string",
+    "status": 1,
+    "tags": [0]
+}
+```
+
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+Update Post
+PUT /post/update
+
+Request:
+```json
+{
+    "id": 0,
+    "name": "string",
+    "slug": "string",
+    "content": "string",
+    "summary": "string",
+    "thumbnail_url": "string",
+    "status": 1,
+    "tags": [0]
+}
+```
+Response:
+```json
+{
+  "message": "Successfully.",
+  "status": "SUCCESS"
+}
+```
+---
+
+UI Mapping:
+- status = 1 → Active (Green tag)
+- status = 0 → Inactive (Red tag)
+
+---
+
+Validation Rules:
+- name: required
+- slug: required, unique
+- content: required
+- summary: required
+- thumbnail_url: required
+- tags: required
 - status: required
 
 ---

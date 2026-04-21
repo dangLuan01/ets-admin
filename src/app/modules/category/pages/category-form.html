@@ -3,7 +3,7 @@
   <form (ngSubmit)="save()">
     <div>
       <label>Name</label>
-      <input [(ngModel)]="category().name" name="name" required />
+      <input [(ngModel)]="category().name" name="name" required (ngModelChange)="onNameChange($event)" />
     </div>
     <div>
       <label>Parent</label>

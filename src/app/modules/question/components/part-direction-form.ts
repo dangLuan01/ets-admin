@@ -9,6 +9,8 @@ import { NzInputNumberModule } from 'ng-zorro-antd/input-number';
 import { QuestionService } from '../services/question.service';
 import { PartDirection } from '../models/question.model';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
+import { CkEditor, CkEditorConfig } from '../../../shared/configs/ckeditor.config';
 
 @Component({
   selector: 'app-part-direction-form',
@@ -21,11 +23,15 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NzButtonModule,
     NzGridModule,
     NzInputNumberModule,
+    CKEditorModule
   ],
   templateUrl: './part-direction-form.html',
   styleUrls: ['./part-direction-form.less'],
 })
 export class PartDirectionFormComponent implements OnInit {
+  public Editor = CkEditor;
+  public config = CkEditorConfig;
+  
   @Input() examId!: number;
   @Input() partId!: number;
   @Output() saved = new EventEmitter<void>();
