@@ -1,0 +1,55 @@
+<form nz-form [formGroup]="validateForm">
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="name">Tên</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <input nz-input formControlName="name" id="name" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="slug">Slug</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <input nz-input formControlName="slug" id="slug" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="summary">Tóm tắt</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <textarea nz-input formControlName="summary" id="summary" [nzAutosize]="{ minRows: 2, maxRows: 6 }"></textarea>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="content">Nội dung</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <ckeditor [config]="config" [editor]="Editor" formControlName="content"></ckeditor>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="thumbnail_url">Thumbnail URL</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <input nz-input formControlName="thumbnail_url" id="thumbnail_url" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="priority">Sắp xếp</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <input nz-input type="number" formControlName="priority" id="priority" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="tags" nzRequired>Tags</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24">
+            <nz-select formControlName="tags" id="tags" nzMode="multiple" (nzScrollToBottom)="loadTags()">
+                <nz-option *ngFor="let tag of tags" [nzValue]="tag.id" [nzLabel]="tag.name"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="status" nzRequired>Trạng thái</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24">
+            <nz-select formControlName="status" id="status">
+                <nz-option [nzValue]="1" nzLabel="Hoạt động"></nz-option>
+                <nz-option [nzValue]="0" nzLabel="Không hoạt động"></nz-option>
+            </nz-select>
+        </nz-form-control>
+    </nz-form-item>
+</form>

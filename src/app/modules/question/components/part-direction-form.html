@@ -4,12 +4,7 @@
       <nz-form-item>
         <nz-form-label>Direction Text</nz-form-label>
         <nz-form-control>
-          <textarea
-            nz-input
-            formControlName="direction_text"
-            rows="4"
-            placeholder="Enter direction text..."
-          ></textarea>
+          <ckeditor [editor]="Editor" formControlName="direction_text" [config]="config"></ckeditor>
         </nz-form-control>
       </nz-form-item>
     </nz-col>
@@ -57,12 +52,7 @@
     <nz-form-item>
       <nz-form-label>Explanation</nz-form-label>
       <nz-form-control>
-        <textarea
-          nz-input
-          formControlName="explanation"
-          rows="2"
-          placeholder="Enter explanation for the example..."
-        ></textarea>
+        <ckeditor [editor]="Editor" formControlName="explanation" [config]="config"></ckeditor>
       </nz-form-control>
     </nz-form-item>
     <nz-row [nzGutter]="16">

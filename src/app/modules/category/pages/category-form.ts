@@ -4,6 +4,7 @@ import { Category, CategoryStructure } from '../models/category.model';
 import { ActivatedRoute, Router } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { generateSlug } from '../../../shared/utils/string.utils';
 
 @Component({
   selector: 'ets-category-form',
@@ -48,6 +49,12 @@ export class CategoryFormPage {
       next: (structure) => this.structure.set(structure),
       error: () => {}
     });
+  }
+
+  onNameChange(name: string) {
+    if (!this.category().slug) {
+      this.category.update(cat => ({ ...cat, slug: generateSlug(name) }));
+    }
   }
 
   save() {
