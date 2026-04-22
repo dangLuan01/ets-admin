@@ -5,6 +5,7 @@ export interface Post {
   content: string;
   summary: string;
   thumbnail_url: string;
+  priority: number;
   tags: number[];
   status: number;
 }

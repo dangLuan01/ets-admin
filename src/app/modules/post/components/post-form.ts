@@ -60,6 +60,7 @@ export class PostFormComponent implements OnInit, OnDestroy {
       content: [this.modalData?.post?.content || '', [Validators.required]],
       summary: [this.modalData?.post?.summary || '', [Validators.required]],
       thumbnail_url: [this.modalData?.post?.thumbnail_url || '', [Validators.required]],
+      priority: [this.modalData?.post?.priority || 9999, ''],
       tags: [this.modalData?.post?.tags || [], [Validators.required]],
       status: [this.modalData?.post?.status ?? 1, [Validators.required]],
     });

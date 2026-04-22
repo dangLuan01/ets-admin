@@ -30,6 +30,12 @@
         </nz-form-control>
     </nz-form-item>
     <nz-form-item>
+        <nz-form-label [nzSm]="4" [nzXs]="24" nzRequired nzFor="priority">Sắp xếp</nz-form-label>
+        <nz-form-control [nzSm]="20" [nzXs]="24" nzErrorTip="Dữ liệu không hợp lệ!">
+            <input nz-input type="number" formControlName="priority" id="priority" />
+        </nz-form-control>
+    </nz-form-item>
+    <nz-form-item>
         <nz-form-label [nzSm]="4" [nzXs]="24" nzFor="tags" nzRequired>Tags</nz-form-label>
         <nz-form-control [nzSm]="20" [nzXs]="24">
             <nz-select formControlName="tags" id="tags" nzMode="multiple" (nzScrollToBottom)="loadTags()">
