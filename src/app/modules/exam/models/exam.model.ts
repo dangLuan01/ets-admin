@@ -8,6 +8,7 @@ export interface Exam {
   id: number;
   cert_id: number;
   title: string;
+  slug: string;
   year: number;
   category_ids: number[] | null;
   total_time: number;

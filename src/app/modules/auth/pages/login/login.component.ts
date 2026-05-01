@@ -7,6 +7,7 @@ import { NzInputModule } from 'ng-zorro-antd/input';
 import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Component({
   selector: 'app-login',
@@ -27,6 +28,7 @@ export class LoginComponent {
   private fb = inject(FormBuilder);
   private authService = inject(AuthService);
   private router = inject(Router);
+  private message = inject(NzMessageService);
 
   constructor() {
     this.form = this.fb.group({
@@ -39,7 +41,7 @@ export class LoginComponent {
     if (this.form.valid) {
       this.authService.login(this.form.value).subscribe({
         next: () => this.router.navigate(['/']),
-        error: (err) => console.error('Login failed', err)
+        error: (err) => this.message.error(`Login error: ${err.message}`)
       });
     }
   }
