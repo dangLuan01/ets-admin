@@ -19,6 +19,7 @@ import { Exam, ExamStructure, QuestionData, GroupData, Direction, FilterStructur
 import { CertificateService } from '../../certificate/services/certificate.service';
 import { NZ_MODAL_DATA, NzModalRef, NzModalService } from 'ng-zorro-antd/modal';
 import { DirectionEditFormComponent } from './direction-edit-form';
+import { generateSlug } from '../../../shared/utils/string.utils';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CkEditor, CkEditorConfig } from '../../../shared/configs/ckeditor.config';
 
@@ -76,6 +77,7 @@ export class ExamFormComponent implements OnInit {
     this.validateForm = this.fb.group({
       cert_id: ['', [Validators.required]],
       title: ['', [Validators.required]],
+      slug: ['', [Validators.required]],
       year: ['', [Validators.required]],
       total_time: ['', [Validators.required]],
       total_question: ['', [Validators.required]],
@@ -137,6 +139,13 @@ export class ExamFormComponent implements OnInit {
 
     // Load the first page of target exams
     this.loadMoreTargetExams();
+
+    this.validateForm.get('title')?.valueChanges.subscribe(val => {
+      if (val) {
+        const slug = generateSlug(val);
+        this.validateForm.get('slug')?.setValue(slug, { emitEvent: false });
+      }
+    });
   }
 
   loadMoreTargetExams(): void {
@@ -353,7 +362,7 @@ export class ExamFormComponent implements OnInit {
       return;
     }
 
-    const formValue = { ...this.validateForm.value };
+    const formValue = { ...this.validateForm.getRawValue() };
 
     // WORKAROUND: Convert string IDs from tree-select back to numbers for the API.
     if (formValue.category_ids && Array.isArray(formValue.category_ids)) {
