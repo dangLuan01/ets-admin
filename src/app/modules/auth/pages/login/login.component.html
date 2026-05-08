@@ -15,6 +15,7 @@
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>
+      <ngx-turnstile [siteKey]="siteKey" theme="auto" formControlName="token" action="login"></ngx-turnstile>
       <button nz-button class="login-form-button" [nzType]="'primary'" [disabled]="!form.valid">Log in</button>
     </form>
   </nz-card>

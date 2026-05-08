@@ -25,6 +25,7 @@
     "ckeditor5": "^48.0.0",
     "express": "^5.1.0",
     "ng-zorro-antd": "^21.1.1",
+    "ngx-turnstile": "^0.2.5",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0"
   },

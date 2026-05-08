@@ -32,6 +32,18 @@
     </nz-col>
     <nz-col [nzSpan]="24">
       <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzFor="status" nzRequired>Exam Type</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24">
+          <nz-select formControlName="exam_type" id="exam_type">
+            <nz-option [nzValue]="'FULL'" nzLabel="Full test"></nz-option>
+            <nz-option [nzValue]="'MINI'" nzLabel="Mini test"></nz-option>
+            <nz-option [nzValue]="'PRACTICE'" nzLabel="Practice test"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="year">Year</nz-form-label>
         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
           <nz-input-group nzPrefixIcon="calendar">

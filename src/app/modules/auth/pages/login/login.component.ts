@@ -8,6 +8,8 @@ import { NzButtonModule } from 'ng-zorro-antd/button';
 import { NzCardModule } from 'ng-zorro-antd/card';
 import { CommonModule } from '@angular/common';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { NgxTurnstileModule, NgxTurnstileFormsModule } from "ngx-turnstile";
+import { environment } from '../../../../../environments/environment';
 
 @Component({
   selector: 'app-login',
@@ -19,6 +21,8 @@ import { NzMessageService } from 'ng-zorro-antd/message';
     NzInputModule,
     NzButtonModule,
     NzCardModule,
+    NgxTurnstileModule,
+    NgxTurnstileFormsModule
   ],
   templateUrl: './login.component.html',
   styleUrl: './login.component.less'
@@ -29,11 +33,12 @@ export class LoginComponent {
   private authService = inject(AuthService);
   private router = inject(Router);
   private message = inject(NzMessageService);
-
+  public siteKey = environment.TURNSTILE_SITE_KEY;
   constructor() {
     this.form = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required]],
+      token: ['', [Validators.required]],
     });
   }
 

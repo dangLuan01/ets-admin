@@ -33,7 +33,6 @@ const handle401Error = (
     return authService.refreshToken().pipe(
       switchMap((token: any) => {
         isRefreshing = false;
-        // Fix lỗi map sai tên biến "access_token" mà API trả về
         const newAccessToken = token.data?.access_token || token.data?.accessToken;
         refreshTokenSubject.next(newAccessToken);
         return next(addToken(request, newAccessToken));
@@ -70,7 +69,7 @@ export const tokenInterceptor: HttpInterceptorFn = (
     catchError((error) => {
       if (error instanceof HttpErrorResponse && error.status === 401) {
         return handle401Error(req, next, authService);
-      } else {
+      } else {        
         return throwError(() => error);
       }
     })

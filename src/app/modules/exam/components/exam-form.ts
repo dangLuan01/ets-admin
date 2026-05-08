@@ -78,6 +78,7 @@ export class ExamFormComponent implements OnInit {
       cert_id: ['', [Validators.required]],
       title: ['', [Validators.required]],
       slug: ['', [Validators.required]],
+      exam_type: ['', [Validators.required]],
       year: ['', [Validators.required]],
       total_time: ['', [Validators.required]],
       total_question: ['', [Validators.required]],
