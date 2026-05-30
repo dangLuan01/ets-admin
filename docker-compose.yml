@@ -7,8 +7,8 @@ services:
     expose:
       - "4200"
     environment:
-      - VIRTUAL_HOST=admin.vidhub.io.vn
-      - LETSENCRYPT_HOST=admin.vidhub.io.vn
+      - VIRTUAL_HOST=admin.toeicviet.com
+      - LETSENCRYPT_HOST=admin.toeicviet.com
       - LETSENCRYPT_EMAIL=ml2673572@gmail.com
       - VIRTUAL_PORT=4200
     networks:
