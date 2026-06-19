@@ -54,10 +54,20 @@
     </nz-col>
     <nz-col [nzSpan]="24">
       <nz-form-item>
+        <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="speed">Speed</nz-form-label>
+        <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
+          <nz-input-group nzPrefixIcon="clock-circle">
+            <input nz-input formControlName="speed" id="speed" type="number"/>
+          </nz-input-group>
+        </nz-form-control>
+      </nz-form-item>
+    </nz-col>
+    <nz-col [nzSpan]="24">
+      <nz-form-item>
         <nz-form-label [nzSm]="6" [nzXs]="24" nzRequired nzFor="total_time">Total Time</nz-form-label>
         <nz-form-control [nzSm]="18" [nzXs]="24" nzErrorTip="Bắt buộc">
           <nz-input-group nzPrefixIcon="clock-circle">
-            <input nz-input formControlName="total_time" id="total_time" type="number" />
+            <input nz-input formControlName="total_time" id="total_time" type="text" />
           </nz-input-group>
         </nz-form-control>
       </nz-form-item>

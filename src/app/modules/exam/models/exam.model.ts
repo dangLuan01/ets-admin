@@ -17,6 +17,7 @@ export interface Exam {
   description?: string | null;
   thumbnail?: string | null;
   audio_full_url?: string | null;
+  speed: number;
   created_at?: string;
   status: number;
   target?: ExamTarget | null;
