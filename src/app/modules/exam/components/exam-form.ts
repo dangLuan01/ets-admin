@@ -86,6 +86,7 @@ export class ExamFormComponent implements OnInit {
       description: [null],
       thumbnail: [null],
       audio_full_url: [null],
+      speed: [1.0, [Validators.required]],
       status: [1, [Validators.required]],
       questions: this.fb.array([]),
       target: this.fb.group({
